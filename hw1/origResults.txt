@@ -1,0 +1,12 @@
+Current is= 2.66
+Current is= 2.51
+Current is= 2.51
+Current is= 2.51
+Current is= 2.51
+Current is= 2.50
+Current is= 2.51
+Current is= 2.51
+Current is= 2.50
+Current is= 2.51
+Average is=
+2.52300000000000000000

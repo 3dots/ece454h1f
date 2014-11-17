@@ -1,0 +1,71 @@
+Block size = 32
+
+Running Original
+Current is= 2.50
+Current is= 2.51
+Current is= 2.69
+Current is= 2.51
+Current is= 2.52
+Average is=
+2.54600000000000000000
+Running New
+Current is= 2.60
+Current is= 2.56
+Current is= 2.56
+Current is= 2.57
+Current is= 2.55
+Average is=
+2.56800000000000000000
+Ratio of Original over New =
+.99143302180685358255
+
+Block size = 1024
+
+
+Running Original
+Current is= 2.51
+Current is= 2.52
+Current is= 2.50
+Current is= 2.52
+Current is= 2.50
+Average is=
+2.51000000000000000000
+Running New
+Current is= 2.54
+Current is= 2.55
+Current is= 2.56
+Current is= 2.54
+Current is= 2.56
+Average is=
+2.55000000000000000000
+Ratio of Original over New =
+.98431372549019607843
+Running Original
+Running New
+Current is= 2.56
+Current is= 2.56
+Current is= 2.56
+Current is= 2.55
+Current is= 2.55
+Average is=
+2.55600000000000000000
+Ratio of Original over New =
+Running New
+Current is= 2.55
+Current is= 2.55
+Current is= 2.56
+Current is= 2.65
+Current is= 2.53
+Average is=
+2.56800000000000000000
+Ratio of Original over New =
+Running New
+Current is= 2.55
+Current is= 2.56
+Current is= 2.55
+Current is= 2.56
+Current is= 2.55
+Average is=
+2.55400000000000000000
+Ratio of Original over New =
+.98786217697729052466

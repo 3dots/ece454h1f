@@ -1,0 +1,1155 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 67.30      1.77     1.77   869998     0.00     0.00  try_swap
+ 15.59      2.18     0.41 25584958     0.00     0.00  comp_td_point_to_point_delay
+  6.08      2.34     0.16    68548     0.00     0.00  label_wire_muxes
+  4.18      2.45     0.11   315200     0.00     0.00  get_bb_from_scratch
+  1.52      2.49     0.04  3008047     0.00     0.00  update_bb ---------------------------1.52
+  1.14      2.52     0.03    65868     0.00     0.00  get_unidir_track_to_chan_seg
+  1.14      2.55     0.03      124     0.00     0.00  load_net_slack
+  0.38      2.56     0.01  3022684     0.00     0.00  my_irand
+  0.38      2.57     0.01   377666     0.00     0.00  my_malloc
+  0.38      2.58     0.01   222559     0.00     0.00  get_timing_driven_expected_cost
+  0.38      2.59     0.01   222082     0.00     0.00  get_rr_cong_cost
+  0.38      2.60     0.01        1     0.01     0.22  build_rr_graph
+  0.38      2.61     0.01        1     0.01     0.01  check_rr_graph
+  0.38      2.62     0.01        1     0.01     0.01  sync_nets_to_blocks
+  0.38      2.63     0.01        1     0.01     2.62  try_place
+  0.00      2.63     0.00  1342470     0.00     0.00  get_rr_node_index
+  0.00      2.63     0.00   638248     0.00     0.00  my_frand
+  0.00      2.63     0.00   222559     0.00     0.00  node_to_heap
+  0.00      2.63     0.00   218668     0.00     0.00  insert_in_edge_list
+  0.00      2.63     0.00    78880     0.00     0.00  seg_index_of_cblock
+  0.00      2.63     0.00    65868     0.00     0.00  seg_index_of_sblock
+  0.00      2.63     0.00    55176     0.00     0.00  get_track_to_tracks
+  0.00      2.63     0.00    29040     0.00     0.00  get_seg_end
+  0.00      2.63     0.00    29040     0.00     0.00  get_seg_start
+  0.00      2.63     0.00    22465     0.00     0.00  free_heap_data
+  0.00      2.63     0.00    22465     0.00     0.00  get_heap_head
+  0.00      2.63     0.00    21912     0.00     0.00  get_simple_switch_block_track
+  0.00      2.63     0.00    20292     0.00     0.00  check_node
+  0.00      2.63     0.00    19536     0.00     0.00  add_to_mod_list
+  0.00      2.63     0.00    17092     0.00     0.00  alloc_and_load_edges_and_switches
+  0.00      2.63     0.00    15972     0.00     0.00  get_track_to_ipins
+  0.00      2.63     0.00     6904     0.00     0.00  my_chunk_malloc
+  0.00      2.63     0.00     5604     0.00     0.00  insert_in_int_list
+  0.00      2.63     0.00     4966     0.00     0.00  is_opin
+  0.00      2.63     0.00     3774     0.00     0.00  my_atoi
+  0.00      2.63     0.00     3302     0.00     0.00  FreeTokens
+  0.00      2.63     0.00     3287     0.00     0.00  CountTokens
+  0.00      2.63     0.00     2943     0.00     0.00  ReadLineTokens
+  0.00      2.63     0.00     1359     0.00     0.00  my_strdup
+  0.00      2.63     0.00     1120     0.00     0.00  get_unidir_opin_connections
+  0.00      2.63     0.00      954     0.00     0.00  pathfinder_update_one_cost
+  0.00      2.63     0.00      649     0.00     0.00  insert_in_hash_table
+  0.00      2.63     0.00      551     0.00     0.00  ezxml_decode
+  0.00      2.63     0.00      511     0.00     0.00  get_mst_of_net
+  0.00      2.63     0.00      478     0.00     0.00  load_net_rr_terminals
+  0.00      2.63     0.00      477     0.00     0.00  add_route_tree_to_heap
+  0.00      2.63     0.00      477     0.00     0.00  empty_heap
+  0.00      2.63     0.00      477     0.00     0.00  free_route_tree
+  0.00      2.63     0.00      477     0.00     0.00  free_traceback
+  0.00      2.63     0.00      477     0.00     0.00  heapsort
+  0.00      2.63     0.00      477     0.00     0.00  init_route_tree_to_source
+  0.00      2.63     0.00      477     0.00     0.00  load_rt_subtree_Tdel
+  0.00      2.63     0.00      477     0.00     0.00  mark_ends
+  0.00      2.63     0.00      477     0.00     0.00  reset_path_costs
+  0.00      2.63     0.00      477     0.00     0.00  timing_driven_route_net
+  0.00      2.63     0.00      477     0.00     0.00  update_net_delays_from_route_tree
+  0.00      2.63     0.00      477     0.00     0.00  update_route_tree
+  0.00      2.63     0.00      477     0.00     0.00  update_traceback
+  0.00      2.63     0.00      437     0.00     0.00  alloc_matrix
+  0.00      2.63     0.00      431     0.00     0.00  ezxml_char_content
+  0.00      2.63     0.00      430     0.00     0.00  free_matrix
+  0.00      2.63     0.00      359     0.00     0.00  postscript
+  0.00      2.63     0.00      276     0.00     0.00  load_one_fb_fanout_count
+  0.00      2.63     0.00      222     0.00     0.00  FreeNode
+  0.00      2.63     0.00      222     0.00     0.00  ezxml_cut
+  0.00      2.63     0.00      222     0.00     0.00  ezxml_free
+  0.00      2.63     0.00      222     0.00     0.00  ezxml_free_attr
+  0.00      2.63     0.00      221     0.00     0.00  ezxml_insert
+  0.00      2.63     0.00      183     0.00     0.00  ezxml_attr
+  0.00      2.63     0.00      180     0.00     0.00  ezxml_set_txt
+  0.00      2.63     0.00      173     0.00     0.00  GetNodeTokens
+  0.00      2.63     0.00      171     0.00     0.00  my_calloc
+  0.00      2.63     0.00      139     0.00     0.00  comp_td_costs
+  0.00      2.63     0.00      139     0.00     0.00  get_next_hash
+  0.00      2.63     0.00      125     0.00     0.00  ezxml_set_attr
+  0.00      2.63     0.00      124     0.00     0.00  load_timing_graph_net_delays
+  0.00      2.63     0.00      123     0.00     0.00  load_criticalities
+  0.00      2.63     0.00      123     0.00     0.00  update_screen
+  0.00      2.63     0.00      121     0.00     0.00  load_sblock_pattern_lookup
+  0.00      2.63     0.00       57     0.00     0.00  alloc_ivector_and_copy_int_list
+  0.00      2.63     0.00       43     0.00     0.00  ezxml_child
+  0.00      2.63     0.00       36     0.00     0.00  comp_width
+  0.00      2.63     0.00        6     0.00     0.00  ParseFc
+  0.00      2.63     0.00        6     0.00     0.00  alloc_and_load_grid
+  0.00      2.63     0.00        5     0.00     0.00  alloc_matrix3
+  0.00      2.63     0.00        5     0.00     0.00  my_realloc
+  0.00      2.63     0.00        4     0.00     0.00  free_chunk_memory
+  0.00      2.63     0.00        4     0.00     0.00  free_matrix3
+  0.00      2.63     0.00        4     0.00     0.00  get_class_range_for_block
+  0.00      2.63     0.00        3     0.00     0.00  ProcessOption
+  0.00      2.63     0.00        3     0.00     0.00  alloc_and_load_pin_to_track_map
+  0.00      2.63     0.00        3     0.00     0.00  free_ivec_vector
+  0.00      2.63     0.00        3     0.00     0.00  free_matrix4
+  0.00      2.63     0.00        2     0.00     0.00  ProcessCB_SB
+  0.00      2.63     0.00        2     0.00     0.00  ProcessChanWidthDistrDir
+  0.00      2.63     0.00        2     0.00     0.00  alloc_hash_table
+  0.00      2.63     0.00        2     0.00     0.00  alloc_matrix4
+  0.00      2.63     0.00        2     0.00     0.00  comp_bb_cost
+  0.00      2.63     0.00        2     0.00     0.00  free_hash_table
+  0.00      2.63     0.00        2     0.00     0.00  free_rr_graph
+  0.00      2.63     0.00        2     0.00     0.00  init_chan
+  0.00      2.63     0.00        2     0.00     0.00  load_chan_rr_indices
+  0.00      2.63     0.00        2     0.00     0.00  load_rr_indexed_data_T_values
+  0.00      2.63     0.00        2     0.00     0.00  my_fopen
+  0.00      2.63     0.00        1     0.00     0.00  ProcessTypes
+  0.00      2.63     0.00        1     0.00     0.00  XmlReadArch
+  0.00      2.63     0.00        1     0.00     0.00  add_rr_graph_C_from_switches
+  0.00      2.63     0.00        1     0.00     0.00  alloc_and_load_rr_indexed_data
+  0.00      2.63     0.00        1     0.00     0.00  alloc_and_load_rr_node_indices
+  0.00      2.63     0.00        1     0.00     0.00  alloc_and_load_rr_node_route_structs
+  0.00      2.63     0.00        1     0.00     0.00  alloc_and_load_seg_details
+  0.00      2.63     0.00        1     0.00     0.00  alloc_and_load_timing_graph
+  0.00      2.63     0.00        1     0.00     0.00  alloc_and_load_timing_graph_levels
+  0.00      2.63     0.00        1     0.00     0.24  alloc_lookups_and_criticalities
+  0.00      2.63     0.00        1     0.00     0.00  alloc_net_delay
+  0.00      2.63     0.00        1     0.00     0.00  alloc_route_structs
+  0.00      2.63     0.00        1     0.00     0.00  alloc_route_tree_timing_structs
+  0.00      2.63     0.00        1     0.00     0.00  alloc_sblock_pattern_lookup
+  0.00      2.63     0.00        1     0.00     0.00  alloc_timing_driven_route_structs
+  0.00      2.63     0.00        1     0.00     0.00  check_netlist
+  0.00      2.63     0.00        1     0.00     0.00  check_timing_graph
+  0.00      2.63     0.00        1     0.00     0.24  compute_delay_lookup_tables
+  0.00      2.63     0.00        1     0.00     0.00  ezxml_new
+  0.00      2.63     0.00        1     0.00     0.00  ezxml_parse_file
+  0.00      2.63     0.00        1     0.00     0.00  ezxml_parse_str
+  0.00      2.63     0.00        1     0.00     0.00  ezxml_str2utf8
+  0.00      2.63     0.00        1     0.00     0.00  free_int_list
+  0.00      2.63     0.00        1     0.00     0.00  free_lookups_and_criticalities
+  0.00      2.63     0.00        1     0.00     0.00  free_net_delay
+  0.00      2.63     0.00        1     0.00     0.00  free_route_structs
+  0.00      2.63     0.00        1     0.00     0.00  free_route_tree_timing_structs
+  0.00      2.63     0.00        1     0.00     0.00  free_rr_node_indices
+  0.00      2.63     0.00        1     0.00     0.00  free_rr_node_route_structs
+  0.00      2.63     0.00        1     0.00     0.00  free_sblock_pattern_lookup
+  0.00      2.63     0.00        1     0.00     0.00  free_seg_details
+  0.00      2.63     0.00        1     0.00     0.00  free_timing_driven_route_structs
+  0.00      2.63     0.00        1     0.00     0.00  free_timing_graph
+  0.00      2.63     0.00        1     0.00     0.00  free_trace_structs
+  0.00      2.63     0.00        1     0.00     0.00  init_draw_coords
+  0.00      2.63     0.00        1     0.00     0.00  init_route_structs
+  0.00      2.63     0.00        1     0.00     0.00  load_route_bb
+  0.00      2.63     0.00        1     0.00     0.00  my_srandom
+  0.00      2.63     0.00        1     0.00     0.00  post_place_sync
+  0.00      2.63     0.00        1     0.00     0.00  print_place
+  0.00      2.63     0.00        1     0.00     0.01  read_netlist
+  0.00      2.63     0.00        1     0.00     0.00  start_hash_table_iterator
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.38% of 2.63 seconds
+
+index % time    self  children    called     name
+                0.01    2.61       1/1           place_and_route [2]
+[1]     99.6    0.01    2.61       1         try_place [1]
+                1.77    0.57  869998/869998      try_swap [3]
+                0.00    0.24       1/1           alloc_lookups_and_criticalities [5]
+                0.03    0.00     124/124         load_net_slack [13]
+                0.00    0.00     139/139         comp_td_costs [26]
+                0.00    0.00    2086/377666      my_malloc [20]
+                0.00    0.00     511/511         get_mst_of_net [34]
+                0.00    0.00       2/2           comp_bb_cost [38]
+                0.00    0.00     138/3022684     my_irand [19]
+                0.00    0.00     124/124         load_timing_graph_net_delays [101]
+                0.00    0.00     123/123         update_screen [103]
+                0.00    0.00     123/123         load_criticalities [102]
+                0.00    0.00       5/171         my_calloc [98]
+                0.00    0.00       1/2           init_chan [122]
+                0.00    0.00       1/437         alloc_matrix [87]
+                0.00    0.00       1/1           init_draw_coords [143]
+                0.00    0.00       1/430         free_matrix [89]
+                0.00    0.00       1/1           free_net_delay [133]
+                0.00    0.00       1/1           free_lookups_and_criticalities [132]
+-----------------------------------------------
+                                                 <spontaneous>
+[2]     99.6    0.00    2.62                 place_and_route [2]
+                0.01    2.61       1/1           try_place [1]
+                0.00    0.00       1/1           print_place [148]
+                0.00    0.00       1/1           post_place_sync [147]
+-----------------------------------------------
+                1.77    0.57  869998/869998      try_place [1]
+[3]     88.9    1.77    0.57  869998         try_swap [3]
+                0.41    0.00 25424969/25584958     comp_td_point_to_point_delay [4]
+                0.11    0.00  315164/315200      get_bb_from_scratch [11]
+                0.04    0.00 3008047/3008047     update_bb [12]
+                0.01    0.00 3022546/3022684     my_irand [19]
+                0.00    0.00       4/377666      my_malloc [20]
+                0.00    0.00  638248/638248      my_frand [60]
+-----------------------------------------------
+                0.00    0.00  159989/25584958     comp_td_costs [26]
+                0.41    0.00 25424969/25584958     try_swap [3]
+[4]     15.6    0.41    0.00 25584958         comp_td_point_to_point_delay [4]
+-----------------------------------------------
+                0.00    0.24       1/1           try_place [1]
+[5]      9.1    0.00    0.24       1         alloc_lookups_and_criticalities [5]
+                0.00    0.24       1/1           compute_delay_lookup_tables [6]
+                0.00    0.00       1/1           alloc_and_load_timing_graph [31]
+                0.00    0.00       1/1           alloc_net_delay [56]
+                0.00    0.00       1/377666      my_malloc [20]
+                0.00    0.00     511/6904        my_chunk_malloc [69]
+-----------------------------------------------
+                0.00    0.24       1/1           alloc_lookups_and_criticalities [5]
+[6]      9.1    0.00    0.24       1         compute_delay_lookup_tables [6]
+                0.01    0.21       1/1           build_rr_graph [7]
+                0.00    0.02     359/359         postscript [15]
+                0.00    0.00     119/477         timing_driven_route_net [14]
+                0.00    0.00     153/377666      my_malloc [20]
+                0.00    0.00       1/1           alloc_route_structs [46]
+                0.00    0.00       1/1           alloc_timing_driven_route_structs [50]
+                0.00    0.00       1/1           alloc_and_load_rr_node_route_structs [54]
+                0.00    0.00       1/1           alloc_route_tree_timing_structs [57]
+                0.00    0.00     119/478         load_net_rr_terminals [78]
+                0.00    0.00       7/437         alloc_matrix [87]
+                0.00    0.00       3/430         free_matrix [89]
+                0.00    0.00       2/2           free_rr_graph [121]
+                0.00    0.00       1/2           init_chan [122]
+                0.00    0.00       1/1           init_route_structs [144]
+                0.00    0.00       1/1           free_rr_node_route_structs [137]
+                0.00    0.00       1/1           free_trace_structs [142]
+                0.00    0.00       1/1           free_route_structs [134]
+                0.00    0.00       1/1           free_route_tree_timing_structs [135]
+                0.00    0.00       1/1           free_timing_driven_route_structs [140]
+-----------------------------------------------
+                0.01    0.21       1/1           compute_delay_lookup_tables [6]
+[7]      8.3    0.01    0.21       1         build_rr_graph [7]
+                0.00    0.19   55176/55176       get_track_to_tracks [9]
+                0.01    0.00       1/1           check_rr_graph [23]
+                0.00    0.01    1120/1120        get_unidir_opin_connections [24]
+                0.00    0.00   15972/15972       get_track_to_ipins [27]
+                0.00    0.00     121/121         load_sblock_pattern_lookup [28]
+                0.00    0.00   17092/17092       alloc_and_load_edges_and_switches [29]
+                0.00    0.00    6464/377666      my_malloc [20]
+                0.00    0.00       1/1           alloc_and_load_rr_node_indices [37]
+                0.00    0.00       1/1           alloc_and_load_seg_details [42]
+                0.00    0.00       3/3           alloc_and_load_pin_to_track_map [47]
+                0.00    0.00       1/1           alloc_sblock_pattern_lookup [48]
+                0.00    0.00       1/1           alloc_and_load_rr_indexed_data [53]
+                0.00    0.00   29040/29040       get_seg_start [64]
+                0.00    0.00   29040/29040       get_seg_end [63]
+                0.00    0.00   25078/1342470     get_rr_node_index [59]
+                0.00    0.00       3/3           free_matrix4 [115]
+                0.00    0.00       2/5           alloc_matrix3 [108]
+                0.00    0.00       2/4           get_class_range_for_block [112]
+                0.00    0.00       2/430         free_matrix [89]
+                0.00    0.00       2/4           free_matrix3 [111]
+                0.00    0.00       2/437         alloc_matrix [87]
+                0.00    0.00       1/1           add_rr_graph_C_from_switches [125]
+                0.00    0.00       1/6904        my_chunk_malloc [69]
+                0.00    0.00       1/478         load_net_rr_terminals [78]
+                0.00    0.00       1/1           free_seg_details [139]
+                0.00    0.00       1/1           free_sblock_pattern_lookup [138]
+-----------------------------------------------
+                0.03    0.16   65868/65868       get_track_to_tracks [9]
+[8]      7.2    0.03    0.16   65868         get_unidir_track_to_chan_seg [8]
+                0.15    0.00   65868/68548       label_wire_muxes [10]
+                0.00    0.00   65868/218668      insert_in_edge_list [25]
+                0.00    0.00   30888/377666      my_malloc [20]
+                0.00    0.00 1241988/1342470     get_rr_node_index [59]
+-----------------------------------------------
+                0.00    0.19   55176/55176       build_rr_graph [7]
+[9]      7.2    0.00    0.19   55176         get_track_to_tracks [9]
+                0.03    0.16   65868/65868       get_unidir_track_to_chan_seg [8]
+-----------------------------------------------
+                0.00    0.00     440/68548       load_sblock_pattern_lookup [28]
+                0.01    0.00    2240/68548       get_unidir_opin_connections [24]
+                0.15    0.00   65868/68548       get_unidir_track_to_chan_seg [8]
+[10]     6.2    0.16    0.00   68548         label_wire_muxes [10]
+                0.00    0.00   68548/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00      36/315200      comp_bb_cost [38]
+                0.11    0.00  315164/315200      try_swap [3]
+[11]     4.2    0.11    0.00  315200         get_bb_from_scratch [11]
+-----------------------------------------------
+                0.04    0.00 3008047/3008047     try_swap [3]
+[12]     1.5    0.04    0.00 3008047         update_bb [12]
+-----------------------------------------------
+                0.03    0.00     124/124         try_place [1]
+[13]     1.1    0.03    0.00     124         load_net_slack [13]
+-----------------------------------------------
+                0.00    0.00     119/477         compute_delay_lookup_tables [6]
+                0.00    0.02     358/477         postscript [15]
+[14]     0.8    0.00    0.02     477         timing_driven_route_net [14]
+                0.01    0.00  222082/222082      get_rr_cong_cost [22]
+                0.01    0.00  222082/222559      get_timing_driven_expected_cost [21]
+                0.00    0.00     477/477         add_route_tree_to_heap [35]
+                0.00    0.00     477/477         update_route_tree [44]
+                0.00    0.00  222082/222559      node_to_heap [45]
+                0.00    0.00   19536/19536       add_to_mod_list [49]
+                0.00    0.00     477/477         init_route_tree_to_source [51]
+                0.00    0.00     477/477         update_traceback [52]
+                0.00    0.00   22465/22465       get_heap_head [66]
+                0.00    0.00   22465/22465       free_heap_data [65]
+                0.00    0.00     954/954         pathfinder_update_one_cost [76]
+                0.00    0.00     477/477         free_traceback [81]
+                0.00    0.00     477/477         heapsort [82]
+                0.00    0.00     477/477         mark_ends [84]
+                0.00    0.00     477/477         empty_heap [79]
+                0.00    0.00     477/477         reset_path_costs [85]
+                0.00    0.00     477/477         free_route_tree [80]
+                0.00    0.00     477/477         update_net_delays_from_route_tree [86]
+-----------------------------------------------
+                                 358             postscript [15]
+                0.00    0.02     359/359         compute_delay_lookup_tables [6]
+[15]     0.6    0.00    0.02     359+358     postscript [15]
+                0.00    0.02     358/477         timing_driven_route_net [14]
+                0.00    0.00     358/478         load_net_rr_terminals [78]
+                                 358             postscript [15]
+-----------------------------------------------
+                                                 <spontaneous>
+[16]     0.4    0.00    0.01                 SetupVPR [16]
+                0.00    0.01       1/1           read_netlist [17]
+                0.00    0.00       1/1           check_netlist [32]
+                0.00    0.00       6/6           alloc_and_load_grid [36]
+                0.00    0.00       1/1           XmlReadArch [39]
+                0.00    0.00     192/377666      my_malloc [20]
+                0.00    0.00       5/430         free_matrix [89]
+                0.00    0.00       2/171         my_calloc [98]
+                0.00    0.00       1/222         ezxml_free [93]
+                0.00    0.00       1/222         FreeNode [91]
+                0.00    0.00       1/1           my_srandom [146]
+-----------------------------------------------
+                0.00    0.01       1/1           SetupVPR [16]
+[17]     0.4    0.00    0.01       1         read_netlist [17]
+                0.01    0.00       1/1           sync_nets_to_blocks [18]
+                0.00    0.00    2943/2943        ReadLineTokens [30]
+                0.00    0.00    2001/377666      my_malloc [20]
+                0.00    0.00    3543/3774        my_atoi [72]
+                0.00    0.00    3129/3302        FreeTokens [73]
+                0.00    0.00    3126/3287        CountTokens [74]
+                0.00    0.00    1352/1359        my_strdup [75]
+                0.00    0.00       1/2           my_fopen [124]
+-----------------------------------------------
+                0.01    0.00       1/1           read_netlist [17]
+[18]     0.4    0.01    0.00       1         sync_nets_to_blocks [18]
+                0.00    0.00    1022/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00     138/3022684     try_place [1]
+                0.01    0.00 3022546/3022684     try_swap [3]
+[19]     0.4    0.01    0.00 3022684         my_irand [19]
+-----------------------------------------------
+                0.00    0.00       1/377666      check_netlist [32]
+                0.00    0.00       1/377666      update_traceback [52]
+                0.00    0.00       1/377666      alloc_and_load_rr_node_route_structs [54]
+                0.00    0.00       1/377666      alloc_route_tree_timing_structs [57]
+                0.00    0.00       1/377666      init_route_tree_to_source [51]
+                0.00    0.00       1/377666      alloc_and_load_rr_indexed_data [53]
+                0.00    0.00       1/377666      alloc_net_delay [56]
+                0.00    0.00       1/377666      alloc_and_load_timing_graph_levels [55]
+                0.00    0.00       1/377666      ReadOptions [58]
+                0.00    0.00       1/377666      alloc_lookups_and_criticalities [5]
+                0.00    0.00       3/377666      add_to_mod_list [49]
+                0.00    0.00       3/377666      alloc_timing_driven_route_structs [50]
+                0.00    0.00       4/377666      XmlReadArch [39]
+                0.00    0.00       4/377666      try_swap [3]
+                0.00    0.00       5/377666      alloc_sblock_pattern_lookup [48]
+                0.00    0.00       6/377666      alloc_and_load_pin_to_track_map [47]
+                0.00    0.00       8/377666      node_to_heap [45]
+                0.00    0.00       8/377666      alloc_route_structs [46]
+                0.00    0.00      28/377666      update_route_tree [44]
+                0.00    0.00      91/377666      ProcessTypes [40]
+                0.00    0.00     153/377666      compute_delay_lookup_tables [6]
+                0.00    0.00     192/377666      SetupVPR [16]
+                0.00    0.00     244/377666      load_chan_rr_indices [43]
+                0.00    0.00     267/377666      alloc_and_load_seg_details [42]
+                0.00    0.00     307/377666      alloc_and_load_rr_node_indices [37]
+                0.00    0.00     346/377666      GetNodeTokens [41]
+                0.00    0.00     440/377666      load_sblock_pattern_lookup [28]
+                0.00    0.00     766/377666      alloc_and_load_grid [36]
+                0.00    0.00    1022/377666      get_mst_of_net [34]
+                0.00    0.00    1022/377666      sync_nets_to_blocks [18]
+                0.00    0.00    1298/377666      insert_in_hash_table [33]
+                0.00    0.00    2001/377666      read_netlist [17]
+                0.00    0.00    2086/377666      try_place [1]
+                0.00    0.00    2720/377666      alloc_and_load_timing_graph [31]
+                0.00    0.00    5880/377666      ReadLineTokens [30]
+                0.00    0.00    6464/377666      build_rr_graph [7]
+                0.00    0.00   30888/377666      get_unidir_track_to_chan_seg [8]
+                0.00    0.00   34184/377666      alloc_and_load_edges_and_switches [29]
+                0.00    0.00   68548/377666      label_wire_muxes [10]
+                0.01    0.00  218668/377666      insert_in_edge_list [25]
+[20]     0.4    0.01    0.00  377666         my_malloc [20]
+-----------------------------------------------
+                0.00    0.00     477/222559      add_route_tree_to_heap [35]
+                0.01    0.00  222082/222559      timing_driven_route_net [14]
+[21]     0.4    0.01    0.00  222559         get_timing_driven_expected_cost [21]
+-----------------------------------------------
+                0.01    0.00  222082/222082      timing_driven_route_net [14]
+[22]     0.4    0.01    0.00  222082         get_rr_cong_cost [22]
+-----------------------------------------------
+                0.01    0.00       1/1           build_rr_graph [7]
+[23]     0.4    0.01    0.00       1         check_rr_graph [23]
+                0.00    0.00   20292/20292       check_node [68]
+                0.00    0.00       3/171         my_calloc [98]
+-----------------------------------------------
+                0.00    0.01    1120/1120        build_rr_graph [7]
+[24]     0.3    0.00    0.01    1120         get_unidir_opin_connections [24]
+                0.01    0.00    2240/68548       label_wire_muxes [10]
+                0.00    0.00   73920/218668      insert_in_edge_list [25]
+                0.00    0.00   73920/1342470     get_rr_node_index [59]
+-----------------------------------------------
+                0.00    0.00   65868/218668      get_unidir_track_to_chan_seg [8]
+                0.00    0.00   73920/218668      get_unidir_opin_connections [24]
+                0.00    0.00   78880/218668      get_track_to_ipins [27]
+[25]     0.2    0.00    0.01  218668         insert_in_edge_list [25]
+                0.01    0.00  218668/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00     139/139         try_place [1]
+[26]     0.1    0.00    0.00     139         comp_td_costs [26]
+                0.00    0.00  159989/25584958     comp_td_point_to_point_delay [4]
+-----------------------------------------------
+                0.00    0.00   15972/15972       build_rr_graph [7]
+[27]     0.1    0.00    0.00   15972         get_track_to_ipins [27]
+                0.00    0.00   78880/218668      insert_in_edge_list [25]
+-----------------------------------------------
+                0.00    0.00     121/121         build_rr_graph [7]
+[28]     0.0    0.00    0.00     121         load_sblock_pattern_lookup [28]
+                0.00    0.00     440/68548       label_wire_muxes [10]
+                0.00    0.00     440/377666      my_malloc [20]
+                0.00    0.00   21912/21912       get_simple_switch_block_track [67]
+-----------------------------------------------
+                0.00    0.00   17092/17092       build_rr_graph [7]
+[29]     0.0    0.00    0.00   17092         alloc_and_load_edges_and_switches [29]
+                0.00    0.00   34184/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00    2943/2943        read_netlist [17]
+[30]     0.0    0.00    0.00    2943         ReadLineTokens [30]
+                0.00    0.00    5880/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00       1/1           alloc_lookups_and_criticalities [5]
+[31]     0.0    0.00    0.00       1         alloc_and_load_timing_graph [31]
+                0.00    0.00    2720/377666      my_malloc [20]
+                0.00    0.00       1/1           alloc_and_load_timing_graph_levels [55]
+                0.00    0.00    5881/6904        my_chunk_malloc [69]
+                0.00    0.00    1724/4966        is_opin [71]
+                0.00    0.00     414/437         alloc_matrix [87]
+                0.00    0.00     414/430         free_matrix [89]
+                0.00    0.00     138/171         my_calloc [98]
+                0.00    0.00     138/276         load_one_fb_fanout_count [90]
+                0.00    0.00       1/1           check_timing_graph [126]
+-----------------------------------------------
+                0.00    0.00       1/1           SetupVPR [16]
+[32]     0.0    0.00    0.00       1         check_netlist [32]
+                0.00    0.00     649/649         insert_in_hash_table [33]
+                0.00    0.00       1/377666      my_malloc [20]
+                0.00    0.00    3242/4966        is_opin [71]
+                0.00    0.00     139/139         get_next_hash [99]
+                0.00    0.00     138/276         load_one_fb_fanout_count [90]
+                0.00    0.00       3/171         my_calloc [98]
+                0.00    0.00       2/2           alloc_hash_table [118]
+                0.00    0.00       2/2           free_hash_table [120]
+                0.00    0.00       1/437         alloc_matrix [87]
+                0.00    0.00       1/1           start_hash_table_iterator [149]
+                0.00    0.00       1/430         free_matrix [89]
+-----------------------------------------------
+                0.00    0.00     649/649         check_netlist [32]
+[33]     0.0    0.00    0.00     649         insert_in_hash_table [33]
+                0.00    0.00    1298/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00     511/511         try_place [1]
+[34]     0.0    0.00    0.00     511         get_mst_of_net [34]
+                0.00    0.00    1022/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[35]     0.0    0.00    0.00     477         add_route_tree_to_heap [35]
+                0.00    0.00     477/222559      get_timing_driven_expected_cost [21]
+                0.00    0.00     477/222559      node_to_heap [45]
+-----------------------------------------------
+                0.00    0.00       6/6           SetupVPR [16]
+[36]     0.0    0.00    0.00       6         alloc_and_load_grid [36]
+                0.00    0.00     766/377666      my_malloc [20]
+                0.00    0.00       6/437         alloc_matrix [87]
+-----------------------------------------------
+                0.00    0.00       1/1           build_rr_graph [7]
+[37]     0.0    0.00    0.00       1         alloc_and_load_rr_node_indices [37]
+                0.00    0.00     307/377666      my_malloc [20]
+                0.00    0.00       2/2           load_chan_rr_indices [43]
+-----------------------------------------------
+                0.00    0.00       2/2           try_place [1]
+[38]     0.0    0.00    0.00       2         comp_bb_cost [38]
+                0.00    0.00      36/315200      get_bb_from_scratch [11]
+-----------------------------------------------
+                0.00    0.00       1/1           SetupVPR [16]
+[39]     0.0    0.00    0.00       1         XmlReadArch [39]
+                0.00    0.00       1/1           ProcessTypes [40]
+                0.00    0.00       4/377666      my_malloc [20]
+                0.00    0.00      27/183         ezxml_attr [96]
+                0.00    0.00      26/125         ezxml_set_attr [100]
+                0.00    0.00      18/43          ezxml_child [105]
+                0.00    0.00      18/222         ezxml_free [93]
+                0.00    0.00      18/222         FreeNode [91]
+                0.00    0.00       2/2           ProcessChanWidthDistrDir [117]
+                0.00    0.00       2/3774        my_atoi [72]
+                0.00    0.00       2/2           ProcessCB_SB [116]
+                0.00    0.00       1/1           ezxml_parse_file [128]
+                0.00    0.00       1/1359        my_strdup [75]
+-----------------------------------------------
+                0.00    0.00       1/1           XmlReadArch [39]
+[40]     0.0    0.00    0.00       1         ProcessTypes [40]
+                0.00    0.00     173/173         GetNodeTokens [41]
+                0.00    0.00      91/377666      my_malloc [20]
+                0.00    0.00     229/3774        my_atoi [72]
+                0.00    0.00     203/222         ezxml_free [93]
+                0.00    0.00     203/222         FreeNode [91]
+                0.00    0.00     173/3302        FreeTokens [73]
+                0.00    0.00     161/3287        CountTokens [74]
+                0.00    0.00     140/183         ezxml_attr [96]
+                0.00    0.00      90/125         ezxml_set_attr [100]
+                0.00    0.00      25/43          ezxml_child [105]
+                0.00    0.00       7/171         my_calloc [98]
+                0.00    0.00       6/6           ParseFc [107]
+                0.00    0.00       2/1359        my_strdup [75]
+                0.00    0.00       2/437         alloc_matrix [87]
+                0.00    0.00       1/5           alloc_matrix3 [108]
+-----------------------------------------------
+                0.00    0.00     173/173         ProcessTypes [40]
+[41]     0.0    0.00    0.00     173         GetNodeTokens [41]
+                0.00    0.00     346/377666      my_malloc [20]
+                0.00    0.00     173/180         ezxml_set_txt [97]
+-----------------------------------------------
+                0.00    0.00       1/1           build_rr_graph [7]
+[42]     0.0    0.00    0.00       1         alloc_and_load_seg_details [42]
+                0.00    0.00     267/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00       2/2           alloc_and_load_rr_node_indices [37]
+[43]     0.0    0.00    0.00       2         load_chan_rr_indices [43]
+                0.00    0.00     244/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[44]     0.0    0.00    0.00     477         update_route_tree [44]
+                0.00    0.00      28/377666      my_malloc [20]
+                0.00    0.00     477/477         load_rt_subtree_Tdel [83]
+-----------------------------------------------
+                0.00    0.00     477/222559      add_route_tree_to_heap [35]
+                0.00    0.00  222082/222559      timing_driven_route_net [14]
+[45]     0.0    0.00    0.00  222559         node_to_heap [45]
+                0.00    0.00       8/377666      my_malloc [20]
+                0.00    0.00       4/5           my_realloc [109]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[46]     0.0    0.00    0.00       1         alloc_route_structs [46]
+                0.00    0.00       8/377666      my_malloc [20]
+                0.00    0.00       2/4           get_class_range_for_block [112]
+                0.00    0.00       1/171         my_calloc [98]
+-----------------------------------------------
+                0.00    0.00       3/3           build_rr_graph [7]
+[47]     0.0    0.00    0.00       3         alloc_and_load_pin_to_track_map [47]
+                0.00    0.00       6/377666      my_malloc [20]
+                0.00    0.00       4/437         alloc_matrix [87]
+                0.00    0.00       4/430         free_matrix [89]
+                0.00    0.00       2/2           alloc_matrix4 [119]
+                0.00    0.00       2/5           alloc_matrix3 [108]
+                0.00    0.00       2/171         my_calloc [98]
+                0.00    0.00       2/4           free_matrix3 [111]
+-----------------------------------------------
+                0.00    0.00       1/1           build_rr_graph [7]
+[48]     0.0    0.00    0.00       1         alloc_sblock_pattern_lookup [48]
+                0.00    0.00       5/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00   19536/19536       timing_driven_route_net [14]
+[49]     0.0    0.00    0.00   19536         add_to_mod_list [49]
+                0.00    0.00       3/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[50]     0.0    0.00    0.00       1         alloc_timing_driven_route_structs [50]
+                0.00    0.00       3/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[51]     0.0    0.00    0.00     477         init_route_tree_to_source [51]
+                0.00    0.00       1/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[52]     0.0    0.00    0.00     477         update_traceback [52]
+                0.00    0.00       1/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00       1/1           build_rr_graph [7]
+[53]     0.0    0.00    0.00       1         alloc_and_load_rr_indexed_data [53]
+                0.00    0.00       1/377666      my_malloc [20]
+                0.00    0.00     264/1342470     get_rr_node_index [59]
+                0.00    0.00       2/2           load_rr_indexed_data_T_values [123]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[54]     0.0    0.00    0.00       1         alloc_and_load_rr_node_route_structs [54]
+                0.00    0.00       1/377666      my_malloc [20]
+-----------------------------------------------
+                0.00    0.00       1/1           alloc_and_load_timing_graph [31]
+[55]     0.0    0.00    0.00       1         alloc_and_load_timing_graph_levels [55]
+                0.00    0.00       1/377666      my_malloc [20]
+                0.00    0.00    5604/5604        insert_in_int_list [70]
+                0.00    0.00      57/57          alloc_ivector_and_copy_int_list [104]
+                0.00    0.00       1/171         my_calloc [98]
+                0.00    0.00       1/5           my_realloc [109]
+                0.00    0.00       1/1           free_int_list [131]
+-----------------------------------------------
+                0.00    0.00       1/1           alloc_lookups_and_criticalities [5]
+[56]     0.0    0.00    0.00       1         alloc_net_delay [56]
+                0.00    0.00       1/377666      my_malloc [20]
+                0.00    0.00     511/6904        my_chunk_malloc [69]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[57]     0.0    0.00    0.00       1         alloc_route_tree_timing_structs [57]
+                0.00    0.00       1/377666      my_malloc [20]
+-----------------------------------------------
+                                                 <spontaneous>
+[58]     0.0    0.00    0.00                 ReadOptions [58]
+                0.00    0.00       1/377666      my_malloc [20]
+                0.00    0.00       4/1359        my_strdup [75]
+                0.00    0.00       3/3           ProcessOption [113]
+-----------------------------------------------
+                0.00    0.00     264/1342470     load_rr_indexed_data_T_values [123]
+                0.00    0.00     264/1342470     alloc_and_load_rr_indexed_data [53]
+                0.00    0.00     956/1342470     load_net_rr_terminals [78]
+                0.00    0.00   25078/1342470     build_rr_graph [7]
+                0.00    0.00   73920/1342470     get_unidir_opin_connections [24]
+                0.00    0.00 1241988/1342470     get_unidir_track_to_chan_seg [8]
+[59]     0.0    0.00    0.00 1342470         get_rr_node_index [59]
+-----------------------------------------------
+                0.00    0.00  638248/638248      try_swap [3]
+[60]     0.0    0.00    0.00  638248         my_frand [60]
+-----------------------------------------------
+                0.00    0.00   78880/78880       add_rr_graph_C_from_switches [125]
+[61]     0.0    0.00    0.00   78880         seg_index_of_cblock [61]
+-----------------------------------------------
+                0.00    0.00   65868/65868       add_rr_graph_C_from_switches [125]
+[62]     0.0    0.00    0.00   65868         seg_index_of_sblock [62]
+-----------------------------------------------
+                0.00    0.00   29040/29040       build_rr_graph [7]
+[63]     0.0    0.00    0.00   29040         get_seg_end [63]
+-----------------------------------------------
+                0.00    0.00   29040/29040       build_rr_graph [7]
+[64]     0.0    0.00    0.00   29040         get_seg_start [64]
+-----------------------------------------------
+                0.00    0.00   22465/22465       timing_driven_route_net [14]
+[65]     0.0    0.00    0.00   22465         free_heap_data [65]
+-----------------------------------------------
+                0.00    0.00   22465/22465       timing_driven_route_net [14]
+[66]     0.0    0.00    0.00   22465         get_heap_head [66]
+-----------------------------------------------
+                0.00    0.00   21912/21912       load_sblock_pattern_lookup [28]
+[67]     0.0    0.00    0.00   21912         get_simple_switch_block_track [67]
+-----------------------------------------------
+                0.00    0.00   20292/20292       check_rr_graph [23]
+[68]     0.0    0.00    0.00   20292         check_node [68]
+-----------------------------------------------
+                0.00    0.00       1/6904        build_rr_graph [7]
+                0.00    0.00     511/6904        alloc_net_delay [56]
+                0.00    0.00     511/6904        alloc_lookups_and_criticalities [5]
+                0.00    0.00    5881/6904        alloc_and_load_timing_graph [31]
+[69]     0.0    0.00    0.00    6904         my_chunk_malloc [69]
+-----------------------------------------------
+                0.00    0.00    5604/5604        alloc_and_load_timing_graph_levels [55]
+[70]     0.0    0.00    0.00    5604         insert_in_int_list [70]
+-----------------------------------------------
+                0.00    0.00    1724/4966        alloc_and_load_timing_graph [31]
+                0.00    0.00    3242/4966        check_netlist [32]
+[71]     0.0    0.00    0.00    4966         is_opin [71]
+-----------------------------------------------
+                0.00    0.00       2/3774        XmlReadArch [39]
+                0.00    0.00     229/3774        ProcessTypes [40]
+                0.00    0.00    3543/3774        read_netlist [17]
+[72]     0.0    0.00    0.00    3774         my_atoi [72]
+-----------------------------------------------
+                0.00    0.00     173/3302        ProcessTypes [40]
+                0.00    0.00    3129/3302        read_netlist [17]
+[73]     0.0    0.00    0.00    3302         FreeTokens [73]
+-----------------------------------------------
+                0.00    0.00     161/3287        ProcessTypes [40]
+                0.00    0.00    3126/3287        read_netlist [17]
+[74]     0.0    0.00    0.00    3287         CountTokens [74]
+-----------------------------------------------
+                0.00    0.00       1/1359        XmlReadArch [39]
+                0.00    0.00       2/1359        ProcessTypes [40]
+                0.00    0.00       4/1359        ReadOptions [58]
+                0.00    0.00    1352/1359        read_netlist [17]
+[75]     0.0    0.00    0.00    1359         my_strdup [75]
+-----------------------------------------------
+                0.00    0.00     954/954         timing_driven_route_net [14]
+[76]     0.0    0.00    0.00     954         pathfinder_update_one_cost [76]
+-----------------------------------------------
+                0.00    0.00     120/551         ezxml_parse_str [129]
+                0.00    0.00     431/551         ezxml_char_content [88]
+[77]     0.0    0.00    0.00     551         ezxml_decode [77]
+-----------------------------------------------
+                0.00    0.00       1/478         build_rr_graph [7]
+                0.00    0.00     119/478         compute_delay_lookup_tables [6]
+                0.00    0.00     358/478         postscript [15]
+[78]     0.0    0.00    0.00     478         load_net_rr_terminals [78]
+                0.00    0.00     956/1342470     get_rr_node_index [59]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[79]     0.0    0.00    0.00     477         empty_heap [79]
+-----------------------------------------------
+                                 247             free_route_tree [80]
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[80]     0.0    0.00    0.00     477+247     free_route_tree [80]
+                                 247             free_route_tree [80]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[81]     0.0    0.00    0.00     477         free_traceback [81]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[82]     0.0    0.00    0.00     477         heapsort [82]
+-----------------------------------------------
+                                 166             load_rt_subtree_Tdel [83]
+                0.00    0.00     477/477         update_route_tree [44]
+[83]     0.0    0.00    0.00     477+166     load_rt_subtree_Tdel [83]
+                                 166             load_rt_subtree_Tdel [83]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[84]     0.0    0.00    0.00     477         mark_ends [84]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[85]     0.0    0.00    0.00     477         reset_path_costs [85]
+-----------------------------------------------
+                0.00    0.00     477/477         timing_driven_route_net [14]
+[86]     0.0    0.00    0.00     477         update_net_delays_from_route_tree [86]
+-----------------------------------------------
+                0.00    0.00       1/437         check_netlist [32]
+                0.00    0.00       1/437         try_place [1]
+                0.00    0.00       2/437         build_rr_graph [7]
+                0.00    0.00       2/437         ProcessTypes [40]
+                0.00    0.00       4/437         alloc_and_load_pin_to_track_map [47]
+                0.00    0.00       6/437         alloc_and_load_grid [36]
+                0.00    0.00       7/437         compute_delay_lookup_tables [6]
+                0.00    0.00     414/437         alloc_and_load_timing_graph [31]
+[87]     0.0    0.00    0.00     437         alloc_matrix [87]
+-----------------------------------------------
+                0.00    0.00     431/431         ezxml_parse_str [129]
+[88]     0.0    0.00    0.00     431         ezxml_char_content [88]
+                0.00    0.00     431/551         ezxml_decode [77]
+-----------------------------------------------
+                0.00    0.00       1/430         check_netlist [32]
+                0.00    0.00       1/430         try_place [1]
+                0.00    0.00       2/430         build_rr_graph [7]
+                0.00    0.00       3/430         compute_delay_lookup_tables [6]
+                0.00    0.00       4/430         alloc_and_load_pin_to_track_map [47]
+                0.00    0.00       5/430         SetupVPR [16]
+                0.00    0.00     414/430         alloc_and_load_timing_graph [31]
+[89]     0.0    0.00    0.00     430         free_matrix [89]
+-----------------------------------------------
+                0.00    0.00     138/276         check_netlist [32]
+                0.00    0.00     138/276         alloc_and_load_timing_graph [31]
+[90]     0.0    0.00    0.00     276         load_one_fb_fanout_count [90]
+-----------------------------------------------
+                0.00    0.00       1/222         SetupVPR [16]
+                0.00    0.00      18/222         XmlReadArch [39]
+                0.00    0.00     203/222         ProcessTypes [40]
+[91]     0.0    0.00    0.00     222         FreeNode [91]
+                0.00    0.00     222/222         ezxml_cut [92]
+-----------------------------------------------
+                0.00    0.00     222/222         FreeNode [91]
+[92]     0.0    0.00    0.00     222         ezxml_cut [92]
+-----------------------------------------------
+                                 444             ezxml_free [93]
+                0.00    0.00       1/222         SetupVPR [16]
+                0.00    0.00      18/222         XmlReadArch [39]
+                0.00    0.00     203/222         ProcessTypes [40]
+[93]     0.0    0.00    0.00     222+444     ezxml_free [93]
+                0.00    0.00     222/222         ezxml_free_attr [94]
+                                 444             ezxml_free [93]
+-----------------------------------------------
+                0.00    0.00     222/222         ezxml_free [93]
+[94]     0.0    0.00    0.00     222         ezxml_free_attr [94]
+-----------------------------------------------
+                0.00    0.00     221/221         ezxml_parse_str [129]
+[95]     0.0    0.00    0.00     221         ezxml_insert [95]
+-----------------------------------------------
+                0.00    0.00       2/183         ProcessCB_SB [116]
+                0.00    0.00       6/183         ParseFc [107]
+                0.00    0.00       8/183         ProcessChanWidthDistrDir [117]
+                0.00    0.00      27/183         XmlReadArch [39]
+                0.00    0.00     140/183         ProcessTypes [40]
+[96]     0.0    0.00    0.00     183         ezxml_attr [96]
+-----------------------------------------------
+                0.00    0.00       2/180         ProcessCB_SB [116]
+                0.00    0.00       5/180         ParseFc [107]
+                0.00    0.00     173/180         GetNodeTokens [41]
+[97]     0.0    0.00    0.00     180         ezxml_set_txt [97]
+-----------------------------------------------
+                0.00    0.00       1/171         alloc_route_structs [46]
+                0.00    0.00       1/171         alloc_and_load_timing_graph_levels [55]
+                0.00    0.00       2/171         alloc_and_load_pin_to_track_map [47]
+                0.00    0.00       2/171         SetupVPR [16]
+                0.00    0.00       3/171         check_netlist [32]
+                0.00    0.00       3/171         add_rr_graph_C_from_switches [125]
+                0.00    0.00       3/171         check_rr_graph [23]
+                0.00    0.00       5/171         try_place [1]
+                0.00    0.00       6/171         load_rr_indexed_data_T_values [123]
+                0.00    0.00       7/171         ProcessTypes [40]
+                0.00    0.00     138/171         alloc_and_load_timing_graph [31]
+[98]     0.0    0.00    0.00     171         my_calloc [98]
+-----------------------------------------------
+                0.00    0.00     139/139         check_netlist [32]
+[99]     0.0    0.00    0.00     139         get_next_hash [99]
+-----------------------------------------------
+                0.00    0.00       4/125         ProcessChanWidthDistrDir [117]
+                0.00    0.00       5/125         ParseFc [107]
+                0.00    0.00      26/125         XmlReadArch [39]
+                0.00    0.00      90/125         ProcessTypes [40]
+[100]    0.0    0.00    0.00     125         ezxml_set_attr [100]
+-----------------------------------------------
+                0.00    0.00     124/124         try_place [1]
+[101]    0.0    0.00    0.00     124         load_timing_graph_net_delays [101]
+-----------------------------------------------
+                0.00    0.00     123/123         try_place [1]
+[102]    0.0    0.00    0.00     123         load_criticalities [102]
+-----------------------------------------------
+                0.00    0.00     123/123         try_place [1]
+[103]    0.0    0.00    0.00     123         update_screen [103]
+-----------------------------------------------
+                0.00    0.00      57/57          alloc_and_load_timing_graph_levels [55]
+[104]    0.0    0.00    0.00      57         alloc_ivector_and_copy_int_list [104]
+-----------------------------------------------
+                0.00    0.00      18/43          XmlReadArch [39]
+                0.00    0.00      25/43          ProcessTypes [40]
+[105]    0.0    0.00    0.00      43         ezxml_child [105]
+-----------------------------------------------
+                0.00    0.00      36/36          init_chan [122]
+[106]    0.0    0.00    0.00      36         comp_width [106]
+-----------------------------------------------
+                0.00    0.00       6/6           ProcessTypes [40]
+[107]    0.0    0.00    0.00       6         ParseFc [107]
+                0.00    0.00       6/183         ezxml_attr [96]
+                0.00    0.00       5/125         ezxml_set_attr [100]
+                0.00    0.00       5/180         ezxml_set_txt [97]
+-----------------------------------------------
+                0.00    0.00       1/5           ProcessTypes [40]
+                0.00    0.00       2/5           alloc_and_load_pin_to_track_map [47]
+                0.00    0.00       2/5           build_rr_graph [7]
+[108]    0.0    0.00    0.00       5         alloc_matrix3 [108]
+-----------------------------------------------
+                0.00    0.00       1/5           alloc_and_load_timing_graph_levels [55]
+                0.00    0.00       4/5           node_to_heap [45]
+[109]    0.0    0.00    0.00       5         my_realloc [109]
+-----------------------------------------------
+                0.00    0.00       1/4           free_rr_graph [121]
+                0.00    0.00       1/4           free_net_delay [133]
+                0.00    0.00       1/4           free_timing_graph [141]
+                0.00    0.00       1/4           free_lookups_and_criticalities [132]
+[110]    0.0    0.00    0.00       4         free_chunk_memory [110]
+-----------------------------------------------
+                0.00    0.00       2/4           alloc_and_load_pin_to_track_map [47]
+                0.00    0.00       2/4           build_rr_graph [7]
+[111]    0.0    0.00    0.00       4         free_matrix3 [111]
+-----------------------------------------------
+                0.00    0.00       2/4           alloc_route_structs [46]
+                0.00    0.00       2/4           build_rr_graph [7]
+[112]    0.0    0.00    0.00       4         get_class_range_for_block [112]
+-----------------------------------------------
+                0.00    0.00       3/3           ReadOptions [58]
+[113]    0.0    0.00    0.00       3         ProcessOption [113]
+-----------------------------------------------
+                0.00    0.00       1/3           free_timing_graph [141]
+                0.00    0.00       2/3           free_route_structs [134]
+[114]    0.0    0.00    0.00       3         free_ivec_vector [114]
+-----------------------------------------------
+                0.00    0.00       3/3           build_rr_graph [7]
+[115]    0.0    0.00    0.00       3         free_matrix4 [115]
+-----------------------------------------------
+                0.00    0.00       2/2           XmlReadArch [39]
+[116]    0.0    0.00    0.00       2         ProcessCB_SB [116]
+                0.00    0.00       2/183         ezxml_attr [96]
+                0.00    0.00       2/180         ezxml_set_txt [97]
+-----------------------------------------------
+                0.00    0.00       2/2           XmlReadArch [39]
+[117]    0.0    0.00    0.00       2         ProcessChanWidthDistrDir [117]
+                0.00    0.00       8/183         ezxml_attr [96]
+                0.00    0.00       4/125         ezxml_set_attr [100]
+-----------------------------------------------
+                0.00    0.00       2/2           check_netlist [32]
+[118]    0.0    0.00    0.00       2         alloc_hash_table [118]
+-----------------------------------------------
+                0.00    0.00       2/2           alloc_and_load_pin_to_track_map [47]
+[119]    0.0    0.00    0.00       2         alloc_matrix4 [119]
+-----------------------------------------------
+                0.00    0.00       2/2           check_netlist [32]
+[120]    0.0    0.00    0.00       2         free_hash_table [120]
+-----------------------------------------------
+                0.00    0.00       2/2           compute_delay_lookup_tables [6]
+[121]    0.0    0.00    0.00       2         free_rr_graph [121]
+                0.00    0.00       1/4           free_chunk_memory [110]
+                0.00    0.00       1/1           free_rr_node_indices [136]
+-----------------------------------------------
+                0.00    0.00       1/2           try_place [1]
+                0.00    0.00       1/2           compute_delay_lookup_tables [6]
+[122]    0.0    0.00    0.00       2         init_chan [122]
+                0.00    0.00      36/36          comp_width [106]
+-----------------------------------------------
+                0.00    0.00       2/2           alloc_and_load_rr_indexed_data [53]
+[123]    0.0    0.00    0.00       2         load_rr_indexed_data_T_values [123]
+                0.00    0.00     264/1342470     get_rr_node_index [59]
+                0.00    0.00       6/171         my_calloc [98]
+-----------------------------------------------
+                0.00    0.00       1/2           read_netlist [17]
+                0.00    0.00       1/2           print_place [148]
+[124]    0.0    0.00    0.00       2         my_fopen [124]
+-----------------------------------------------
+                0.00    0.00       1/1           build_rr_graph [7]
+[125]    0.0    0.00    0.00       1         add_rr_graph_C_from_switches [125]
+                0.00    0.00   78880/78880       seg_index_of_cblock [61]
+                0.00    0.00   65868/65868       seg_index_of_sblock [62]
+                0.00    0.00       3/171         my_calloc [98]
+-----------------------------------------------
+                0.00    0.00       1/1           alloc_and_load_timing_graph [31]
+[126]    0.0    0.00    0.00       1         check_timing_graph [126]
+-----------------------------------------------
+                0.00    0.00       1/1           ezxml_parse_str [129]
+[127]    0.0    0.00    0.00       1         ezxml_new [127]
+-----------------------------------------------
+                0.00    0.00       1/1           XmlReadArch [39]
+[128]    0.0    0.00    0.00       1         ezxml_parse_file [128]
+                0.00    0.00       1/1           ezxml_parse_str [129]
+-----------------------------------------------
+                0.00    0.00       1/1           ezxml_parse_file [128]
+[129]    0.0    0.00    0.00       1         ezxml_parse_str [129]
+                0.00    0.00     431/431         ezxml_char_content [88]
+                0.00    0.00     221/221         ezxml_insert [95]
+                0.00    0.00     120/551         ezxml_decode [77]
+                0.00    0.00       1/1           ezxml_new [127]
+                0.00    0.00       1/1           ezxml_str2utf8 [130]
+-----------------------------------------------
+                0.00    0.00       1/1           ezxml_parse_str [129]
+[130]    0.0    0.00    0.00       1         ezxml_str2utf8 [130]
+-----------------------------------------------
+                0.00    0.00       1/1           alloc_and_load_timing_graph_levels [55]
+[131]    0.0    0.00    0.00       1         free_int_list [131]
+-----------------------------------------------
+                0.00    0.00       1/1           try_place [1]
+[132]    0.0    0.00    0.00       1         free_lookups_and_criticalities [132]
+                0.00    0.00       1/4           free_chunk_memory [110]
+                0.00    0.00       1/1           free_timing_graph [141]
+-----------------------------------------------
+                0.00    0.00       1/1           try_place [1]
+[133]    0.0    0.00    0.00       1         free_net_delay [133]
+                0.00    0.00       1/4           free_chunk_memory [110]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[134]    0.0    0.00    0.00       1         free_route_structs [134]
+                0.00    0.00       2/3           free_ivec_vector [114]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[135]    0.0    0.00    0.00       1         free_route_tree_timing_structs [135]
+-----------------------------------------------
+                0.00    0.00       1/1           free_rr_graph [121]
+[136]    0.0    0.00    0.00       1         free_rr_node_indices [136]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[137]    0.0    0.00    0.00       1         free_rr_node_route_structs [137]
+-----------------------------------------------
+                0.00    0.00       1/1           build_rr_graph [7]
+[138]    0.0    0.00    0.00       1         free_sblock_pattern_lookup [138]
+-----------------------------------------------
+                0.00    0.00       1/1           build_rr_graph [7]
+[139]    0.0    0.00    0.00       1         free_seg_details [139]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[140]    0.0    0.00    0.00       1         free_timing_driven_route_structs [140]
+-----------------------------------------------
+                0.00    0.00       1/1           free_lookups_and_criticalities [132]
+[141]    0.0    0.00    0.00       1         free_timing_graph [141]
+                0.00    0.00       1/4           free_chunk_memory [110]
+                0.00    0.00       1/3           free_ivec_vector [114]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[142]    0.0    0.00    0.00       1         free_trace_structs [142]
+-----------------------------------------------
+                0.00    0.00       1/1           try_place [1]
+[143]    0.0    0.00    0.00       1         init_draw_coords [143]
+-----------------------------------------------
+                0.00    0.00       1/1           compute_delay_lookup_tables [6]
+[144]    0.0    0.00    0.00       1         init_route_structs [144]
+                0.00    0.00       1/1           load_route_bb [145]
+-----------------------------------------------
+                0.00    0.00       1/1           init_route_structs [144]
+[145]    0.0    0.00    0.00       1         load_route_bb [145]
+-----------------------------------------------
+                0.00    0.00       1/1           SetupVPR [16]
+[146]    0.0    0.00    0.00       1         my_srandom [146]
+-----------------------------------------------
+                0.00    0.00       1/1           place_and_route [2]
+[147]    0.0    0.00    0.00       1         post_place_sync [147]
+-----------------------------------------------
+                0.00    0.00       1/1           place_and_route [2]
+[148]    0.0    0.00    0.00       1         print_place [148]
+                0.00    0.00       1/2           my_fopen [124]
+-----------------------------------------------
+                0.00    0.00       1/1           check_netlist [32]
+[149]    0.0    0.00    0.00       1         start_hash_table_iterator [149]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+  [74] CountTokens            [77] ezxml_decode          [143] init_draw_coords
+  [91] FreeNode               [93] ezxml_free            [144] init_route_structs
+  [73] FreeTokens             [94] ezxml_free_attr        [51] init_route_tree_to_source
+  [41] GetNodeTokens          [95] ezxml_insert           [25] insert_in_edge_list
+ [107] ParseFc               [127] ezxml_new              [33] insert_in_hash_table
+ [116] ProcessCB_SB          [128] ezxml_parse_file       [70] insert_in_int_list
+ [117] ProcessChanWidthDistrDir [129] ezxml_parse_str     [71] is_opin
+ [113] ProcessOption         [100] ezxml_set_attr         [10] label_wire_muxes
+  [40] ProcessTypes           [97] ezxml_set_txt          [43] load_chan_rr_indices
+  [30] ReadLineTokens        [130] ezxml_str2utf8        [102] load_criticalities
+  [39] XmlReadArch           [110] free_chunk_memory      [78] load_net_rr_terminals
+  [35] add_route_tree_to_heap [120] free_hash_table       [13] load_net_slack
+ [125] add_rr_graph_C_from_switches [65] free_heap_data   [90] load_one_fb_fanout_count
+  [49] add_to_mod_list       [131] free_int_list         [145] load_route_bb
+  [29] alloc_and_load_edges_and_switches [114] free_ivec_vector [123] load_rr_indexed_data_T_values
+  [36] alloc_and_load_grid   [132] free_lookups_and_criticalities [83] load_rt_subtree_Tdel
+  [47] alloc_and_load_pin_to_track_map [89] free_matrix   [28] load_sblock_pattern_lookup
+  [53] alloc_and_load_rr_indexed_data [111] free_matrix3 [101] load_timing_graph_net_delays
+  [37] alloc_and_load_rr_node_indices [115] free_matrix4  [84] mark_ends
+  [54] alloc_and_load_rr_node_route_structs [133] free_net_delay [72] my_atoi
+  [42] alloc_and_load_seg_details [134] free_route_structs [98] my_calloc
+  [31] alloc_and_load_timing_graph [80] free_route_tree   [69] my_chunk_malloc
+  [55] alloc_and_load_timing_graph_levels [135] free_route_tree_timing_structs [124] my_fopen
+ [118] alloc_hash_table      [121] free_rr_graph          [60] my_frand
+ [104] alloc_ivector_and_copy_int_list [136] free_rr_node_indices [19] my_irand
+   [5] alloc_lookups_and_criticalities [137] free_rr_node_route_structs [20] my_malloc
+  [87] alloc_matrix          [138] free_sblock_pattern_lookup [109] my_realloc
+ [108] alloc_matrix3         [139] free_seg_details      [146] my_srandom
+ [119] alloc_matrix4         [140] free_timing_driven_route_structs [75] my_strdup
+  [56] alloc_net_delay       [141] free_timing_graph      [45] node_to_heap
+  [46] alloc_route_structs   [142] free_trace_structs     [76] pathfinder_update_one_cost
+  [57] alloc_route_tree_timing_structs [81] free_traceback [147] post_place_sync
+  [48] alloc_sblock_pattern_lookup [11] get_bb_from_scratch [15] postscript
+  [50] alloc_timing_driven_route_structs [112] get_class_range_for_block [148] print_place
+   [7] build_rr_graph         [66] get_heap_head          [17] read_netlist
+  [32] check_netlist          [34] get_mst_of_net         [85] reset_path_costs
+  [68] check_node             [99] get_next_hash          [61] seg_index_of_cblock
+  [23] check_rr_graph         [22] get_rr_cong_cost       [62] seg_index_of_sblock
+ [126] check_timing_graph     [59] get_rr_node_index     [149] start_hash_table_iterator
+  [38] comp_bb_cost           [63] get_seg_end            [18] sync_nets_to_blocks
+  [26] comp_td_costs          [64] get_seg_start          [14] timing_driven_route_net
+   [4] comp_td_point_to_point_delay [67] get_simple_switch_block_track [1] try_place
+ [106] comp_width             [21] get_timing_driven_expected_cost [3] try_swap
+   [6] compute_delay_lookup_tables [27] get_track_to_ipins [12] update_bb
+  [79] empty_heap              [9] get_track_to_tracks    [86] update_net_delays_from_route_tree
+  [96] ezxml_attr             [24] get_unidir_opin_connections [44] update_route_tree
+  [88] ezxml_char_content      [8] get_unidir_track_to_chan_seg [103] update_screen
+ [105] ezxml_child            [82] heapsort               [52] update_traceback
+  [92] ezxml_cut             [122] init_chan
