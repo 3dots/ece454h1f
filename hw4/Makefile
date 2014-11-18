@@ -1,11 +1,11 @@
 
 CC = g++-4.7
-CFLAGS =  -O3 -lpthread
+CFLAGS =  -O3 
 
 all: randtrack 
 
 randtrack: list.h hash.h defs.h randtrackThreads.cc
-	$(CC) $(CFLAGS) randtrackThreads.cc -o $(prog_name)
+	$(CC) $(CFLAGS) randtrackThreads.cc -o $(prog_name) -lpthread
 
 
 clean:
