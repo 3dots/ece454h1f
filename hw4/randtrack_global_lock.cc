@@ -104,13 +104,13 @@ main (int argc, char* argv[]){
   else {
 	  int x = 0;
 	  if(num_threads == 2){
-		  err = pthread_create(&threads[0], NULL, half, (void *) &x);
+		  err = pthread_create(&threads[0], NULL, half0, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
 		  x+=2;
-		  err = pthread_create(&threads[1], NULL, half, (void *) &x);
+		  err = pthread_create(&threads[1], NULL, half1, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
@@ -205,10 +205,17 @@ void * full(void *p){
 	return p;
 }
 
-void * half(void *p){
-	process_stream(*((int *) p));
-	process_stream(*((int *) p) + 1);
-	printf("%d\n", *((int *) p));
+void * half0(void *p){
+	process_stream(0);
+	process_stream(1);
+	//("%d\n", *((int *) p));
+	return p;
+}
+
+void * half1(void *p){
+	process_stream(2);
+	process_stream(3);
+	//printf("%d\n", *((int *) p));
 	return p;
 }
 
