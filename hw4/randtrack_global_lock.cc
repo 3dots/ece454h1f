@@ -29,7 +29,8 @@ team_t team = {
 
 void process_stream(int i);
 void * full(void *p);
-void * half(void *p);
+void * half0(void *p);
+void * half1(void *p);
 void * quarter(void *p);
 
 unsigned num_threads;
