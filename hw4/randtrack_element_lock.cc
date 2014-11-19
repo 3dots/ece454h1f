@@ -48,9 +48,9 @@ class sample {
   sample *next;
   unsigned count;
 
-  sample(unsigned the_key){my_key = the_key; count = 0; pthread_mutex_init(&my_lock, NULL);}
+  sample(unsigned the_key){my_key = the_key; count = 0; pthread_mutex_init(&my_lock, NULL);};
 
-  void ~sample(){
+  ~sample(){
 	  pthread_mutex_destroy(&my_lock);
   };
 
