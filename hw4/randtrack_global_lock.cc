@@ -109,7 +109,7 @@ main (int argc, char* argv[]){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-		  x++;
+		  x+=2;
 		  err = pthread_create(&threads[1], NULL, half, (void *) &x);
 		  if(err){
 			  printf("Thread creation error: %d", err);
