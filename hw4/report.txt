@@ -2,5 +2,25 @@ ECE454H1F Computer Systems Programming
 Lab 4
 
 By: 	Viktor Riabtsev
-	997544420
+		997544420
+		
+Q1.
+Well, program size for one. But really, in the case of global lock vs list lock versions for example, we'd get conflicting code. We'de be intializing structures we don't need to, as well as invoking functions that would slow us down.
 
+Q2.
+If this is a round about way of pointing out that using transactional memory was, code-wise, a lot simpler, then I agree.
+
+Q3.
+No. The whole concept of "list-level" implies you have looked into the structural implementation. Besides, deciding which list is affected, and then calling to modify it, all happen inside the hash implementation.
+
+Q4.
+No. You need to initialize the mutex locks, and while in our case the number of mutexes is fixed, the implmentation actually expects a size parameter during setup, which we need to accomodate dynamically. Similiarly, after we are done with the hash structures, we need to clean them up (which noone ever does in the original implementation), and most importantly, accoriding to the api, an initialized mutex must be "destroyed", thus we need to affect the clean up function as well. 
+
+Q5.
+If by this one function you mean uniting all the operations that need to be atomic, and then locking a particular list when it is decided on, and then doing the necessary operations: finding the requested sample and incrementing it, or inserting a new one if not found and intializing the count to 1; followed by unlocking that list... then sure, yeah that will work.
+
+Q6.
+Whatever floats your boat. If you want to write a function that locks/unlocks a particular list at index i, instead of just locking/unlocking it then and there, sure.
+
+Q7.
+Refer to Q2.
