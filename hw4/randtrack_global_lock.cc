@@ -165,7 +165,7 @@ void process_stream(int i){
 	int rnum;
 	unsigned key;
 	sample *s;
-
+	pthread_mutex_lock(&globalLock);
 	rnum = i;
 	// collect a number of samples
 	for (j=0; j<SAMPLES_TO_COLLECT; j++){
@@ -179,11 +179,11 @@ void process_stream(int i){
 	  key = rnum % RAND_NUM_UPPER_BOUND;
 
 	  //Lock time
-	  pthread_mutex_lock(&globalLock);
+
 	  // if this sample has not been counted before
 	  if (!(s = h.lookup(key))){
 	
-	// insert a new element for it into the hash table
+		  // insert a new element for it into the hash table
 		  s = new sample(key);
 		  h.insert(s);
 	  }
@@ -191,8 +191,9 @@ void process_stream(int i){
 	  // increment the count for the sample
 	  s->count++;
 
-	  pthread_mutex_unlock(&globalLock);
+
 	}
+	pthread_mutex_unlock(&globalLock);
 }
 
 void * full(void *p){
