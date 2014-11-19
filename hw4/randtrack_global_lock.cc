@@ -84,13 +84,15 @@ main (int argc, char* argv[]){
   sscanf(argv[1], " %d", &num_threads); // not used in this single-threaded version
   sscanf(argv[2], " %d", &samples_to_skip);
 
-  // initialize a 16K-entry (2**14) hash of empty lists
-  h.setup(14);
+
 
   // process streams starting with different initial numbers
   if(num_threads > 4 || num_threads <= 0 || num_threads == 3 || NUM_SEED_STREAMS != 4){
 	  return -1;
   }
+
+  // initialize a 16K-entry (2**14) hash of empty lists
+  h.setup(14);
 
   pthread_t threads[4];
   int err;
