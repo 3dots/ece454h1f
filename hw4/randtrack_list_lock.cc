@@ -184,21 +184,9 @@ void process_stream(int i){
 	  // force the sample to be within the range of 0..RAND_NUM_UPPER_BOUND-1
 	  key = rnum % RAND_NUM_UPPER_BOUND;
 
-	  //Lock time s
-
-	  // if this sample has not been counted before
-	  if (!(s = h.lookup(key))){
-
-		  // insert a new element for it into the hash table
-		  s = new sample(key);
-		  h.insert(s);
-	  }
-
-	  // increment the count for the sample
-	  s->count++;
+	  //Thread safe function
+	  h.lookup_and_insert_if_absent(key);
 	  
-
-
 
 	}
 
