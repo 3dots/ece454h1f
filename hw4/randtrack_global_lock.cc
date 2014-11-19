@@ -208,12 +208,13 @@ void * full(void *p){
 void * half(void *p){
 	process_stream(*((int *) p));
 	process_stream(*((int *) p) + 1);
-
+	printf("%d\n", *((int *) p));
 	return p;
 }
 
 void * quarter(void *p){
 	process_stream(*((int *) p));
+	printf("%d\n", *((int *) p));
 
 	return p;
 }
