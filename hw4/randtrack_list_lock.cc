@@ -5,7 +5,7 @@
 
 
 #include "defs.h"
-#include "hash.h"
+#include "hash_list_lock.h"
 
 #define SAMPLES_TO_COLLECT   10000000
 #define RAND_NUM_UPPER_BOUND   100000
@@ -49,6 +49,7 @@ class sample {
 
   sample(unsigned the_key){my_key = the_key; count = 0;};
   unsigned key(){return my_key;}
+  void incr_count(){count++;}
   void print(FILE *f){printf("%d %d\n",my_key,count);}
 };
 
@@ -160,7 +161,6 @@ main (int argc, char* argv[]){
   // print a list of the frequency of all samples
   h.print();
 
-  h.reset();
   h.cleanup();
 
   exit(EXIT_SUCCESS);
