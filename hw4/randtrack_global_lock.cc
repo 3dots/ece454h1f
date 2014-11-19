@@ -54,6 +54,8 @@ class sample {
 // key value is "unsigned".  
 hash<sample,unsigned> h;
 
+pthread_mutex_t globalLock = PTHREAD_MUTEX_INITIALIZER;
+
 int  
 main (int argc, char* argv[]){
   int i;
@@ -88,6 +90,7 @@ main (int argc, char* argv[]){
 
   pthread_t threads[4];
   int err;
+
 
   if(num_threads == 1){
 	  err = pthread_create(&threads[0], NULL, full, NULL);
@@ -148,6 +151,8 @@ main (int argc, char* argv[]){
 	  }
   }
 
+  //Threads died at this point
+  pthread_mutex_destroy(&globalLock);
 
   // print a list of the frequency of all samples
   h.print();
@@ -167,24 +172,26 @@ void process_stream(int i){
 
 	  // skip a number of samples
 	  for (k=0; k<samples_to_skip; k++){
-	rnum = rand_r((unsigned int*)&rnum);
+		  rnum = rand_r((unsigned int*)&rnum);
 	  }
 
 	  // force the sample to be within the range of 0..RAND_NUM_UPPER_BOUND-1
 	  key = rnum % RAND_NUM_UPPER_BOUND;
 
 	  //Lock time
-	  
+	  pthread_mutex_lock(&globalLock);
 	  // if this sample has not been counted before
 	  if (!(s = h.lookup(key))){
 	
 	// insert a new element for it into the hash table
-	s = new sample(key);
-	h.insert(s);
+		  s = new sample(key);
+		  h.insert(s);
 	  }
 
 	  // increment the count for the sample
 	  s->count++;
+
+	  pthread_mutex_unlock(&globalLock);
 	}
 }
 
