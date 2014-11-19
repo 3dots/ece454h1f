@@ -1,10 +1,10 @@
 make clean
-make randtrack_element_lock
+make randtrack_reduction
 
 for numProc in 1 2 4
 do
 	rm rg rgs	
-	./randtrack_element_lock $numProc 50 > rg
+	./randtrack_reduction $numProc 50 > rg
 	sort -n rg > rgs
 
 	diff rs rgs
