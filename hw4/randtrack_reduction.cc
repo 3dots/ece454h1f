@@ -5,7 +5,7 @@
 
 
 #include "defs.h"
-#include "hash.h"
+#include "hash_reduction.h"
 
 #define SAMPLES_TO_COLLECT   10000000
 #define RAND_NUM_UPPER_BOUND   100000
@@ -52,7 +52,10 @@ class sample {
 // it is a C++ template, which means we define the types for
 // the element and key value here: element is "class sample" and
 // key value is "unsigned".  
-hash<sample,unsigned> h;
+hash<sample,unsigned> h0;
+hash<sample,unsigned> h1;
+hash<sample,unsigned> h2;
+hash<sample,unsigned> h3;
 
 int  
 main (int argc, char* argv[]){
@@ -85,14 +88,16 @@ main (int argc, char* argv[]){
 	  return -1;
   }
 
-
+  // initialize a 16K-entry (2**14) hash of empty lists
+  h0.setup(14);
+  h1.setup(14);
+  h2.setup(14);
+  h3.setup(14);
 
   pthread_t threads[4];
   int err;
 
   if(num_threads == 1){
-	  // initialize a 16K-entry (2**14) hash of empty lists
-	  h0.setup(14);
 	  err = pthread_create(&threads[0], NULL, full, (void *) &h0);
 	  if(err){
 		  printf("Thread creation error: %d", err);
@@ -102,15 +107,14 @@ main (int argc, char* argv[]){
 	  pthread_join(threads[0], NULL);
   }
   else {
-	  int x = 0;
 	  if(num_threads == 2){
-		  err = pthread_create(&threads[0], NULL, half, (void *) &x);
+		  err = pthread_create(&threads[0], NULL, half0, (void *) &h0);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-		  x++;
-		  err = pthread_create(&threads[1], NULL, half, (void *) &x);
+
+		  err = pthread_create(&threads[1], NULL, half1, (void *) &h1);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
@@ -118,53 +122,66 @@ main (int argc, char* argv[]){
 
 		  pthread_join(threads[0], NULL);
 		  pthread_join(threads[1], NULL);
+
+		  h0.combine_with(&h1);
 	  }
 	  else{// 4
-		  err = pthread_create(&threads[0], NULL, quarter, (void *) &x);
+
+
+		  err = pthread_create(&threads[0], NULL, quarter0, (void *) &h0);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-		  x++;
-		  err = pthread_create(&threads[1], NULL, quarter, (void *) &x);
+
+		  err = pthread_create(&threads[1], NULL, quarter1, (void *) &h1);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-		  x++;
-		  err = pthread_create(&threads[2], NULL, quarter, (void *) &x);
+
+		  err = pthread_create(&threads[2], NULL, quarter2, (void *) &h2);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-		  x++;
-		  err = pthread_create(&threads[3], NULL, quarter, (void *) &x);
+
+		  err = pthread_create(&threads[3], NULL, quarter3, (void *) &h3);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
-		  } 
+		  }
 
 		  pthread_join(threads[0], NULL);
 		  pthread_join(threads[1], NULL);
 		  pthread_join(threads[2], NULL);
 		  pthread_join(threads[3], NULL);
+
+		  h0.combine_with(&h3);
+		  h0.combine_with(&h2);
+		  h0.combine_with(&h1);
 	  }
   }
 
 
-  // print a list of the frequency of all samples
-  h.print();
 
-  h.cleanup();
+  h0.print();
+
+  h0.cleanup();
+  h1.cleanup();
+  h2.cleanup();
+  h3.cleanup();
 
   exit(EXIT_SUCCESS);
 }
 
-void process_stream(int i){
+void process_stream(int i, void *p){
 	int j,k;
 	int rnum;
 	unsigned key;
 	sample *s;
+
+	hash<sample,unsigned> *h = (hash<sample,unsigned> *) p;
 
 	rnum = i;
 	// collect a number of samples
@@ -179,11 +196,11 @@ void process_stream(int i){
 	  key = rnum % RAND_NUM_UPPER_BOUND;
 
 	  // if this sample has not been counted before
-	  if (!(s = h.lookup(key))){
+	  if (!(s = h->lookup(key))){
 	
 	// insert a new element for it into the hash table
 	s = new sample(key);
-	h.insert(s);
+	h->insert(s);
 	  }
 
 	  // increment the count for the sample
@@ -192,24 +209,46 @@ void process_stream(int i){
 }
 
 void * full(void *p){
-	process_stream(0);
-	process_stream(1);
-	process_stream(2);
-	process_stream(3);
+	process_stream(0, p);
+	process_stream(1, p);
+	process_stream(2, p);
+	process_stream(3, p);
 
 	return p;
 }
 
-void * half(void *p){
-	process_stream(*((int *) p));
-	process_stream(*((int *) p) + 1);
-
+void * half0(void *p){
+	process_stream(0, p);
+	process_stream(1, p);
+	//("%d\n", *((int *) p));
 	return p;
 }
 
-void * quarter(void *p){
-	process_stream(*((int *) p));
-
+void * half1(void *p){
+	process_stream(2, p);
+	process_stream(3, p);
+	//printf("%d\n", *((int *) p));
 	return p;
 }
+
+void * quarter0(void *p){
+	process_stream(0, p);
+	return p;
+}
+
+void * quarter1(void *p){
+	process_stream(1, p);
+	return p;
+}
+
+void * quarter2(void *p){
+	process_stream(2, p);
+	return p;
+}
+
+void * quarter3(void *p){
+	process_stream(3, p);
+	return p;
+}
+
 
