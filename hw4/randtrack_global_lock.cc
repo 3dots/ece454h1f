@@ -31,7 +31,10 @@ void process_stream(int i);
 void * full(void *p);
 void * half0(void *p);
 void * half1(void *p);
-void * quarter(void *p);
+void * quarter0(void *p);
+void * quarter1(void *p);
+void * quarter2(void *p);
+void * quarter3(void *p);
 
 unsigned num_threads;
 unsigned samples_to_skip;
@@ -103,14 +106,13 @@ main (int argc, char* argv[]){
 	  pthread_join(threads[0], NULL);
   }
   else {
-	  int x = 0;
 	  if(num_threads == 2){
 		  err = pthread_create(&threads[0], NULL, half0, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-		  x+=2;
+
 		  err = pthread_create(&threads[1], NULL, half1, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
@@ -121,25 +123,25 @@ main (int argc, char* argv[]){
 		  pthread_join(threads[1], NULL);
 	  }
 	  else{// 4
-		  err = pthread_create(&threads[0], NULL, quarter, (void *) &x);
+		  err = pthread_create(&threads[0], NULL, quarter0, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-		  x++;
-		  err = pthread_create(&threads[1], NULL, quarter, (void *) &x);
+
+		  err = pthread_create(&threads[1], NULL, quarter1, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-		  x++;
-		  err = pthread_create(&threads[2], NULL, quarter, (void *) &x);
+
+		  err = pthread_create(&threads[2], NULL, quarter2, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-		  x++;
-		  err = pthread_create(&threads[3], NULL, quarter, (void *) &x);
+
+		  err = pthread_create(&threads[3], NULL, quarter3, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
@@ -166,7 +168,7 @@ void process_stream(int i){
 	int rnum;
 	unsigned key;
 	sample *s;
-	pthread_mutex_lock(&globalLock);
+
 	rnum = i;
 	// collect a number of samples
 	for (j=0; j<SAMPLES_TO_COLLECT; j++){
@@ -180,7 +182,7 @@ void process_stream(int i){
 	  key = rnum % RAND_NUM_UPPER_BOUND;
 
 	  //Lock time
-
+	  pthread_mutex_lock(&globalLock);
 	  // if this sample has not been counted before
 	  if (!(s = h.lookup(key))){
 	
@@ -191,10 +193,10 @@ void process_stream(int i){
 
 	  // increment the count for the sample
 	  s->count++;
-
+	  pthread_mutex_unlock(&globalLock);
 
 	}
-	pthread_mutex_unlock(&globalLock);
+
 }
 
 void * full(void *p){
@@ -220,10 +222,23 @@ void * half1(void *p){
 	return p;
 }
 
-void * quarter(void *p){
-	process_stream(*((int *) p));
-	printf("%d\n", *((int *) p));
+void * quarter0(void *p){
+	process_stream(0);
+	return p;
+}
 
+void * quarter1(void *p){
+	process_stream(1);
+	return p;
+}
+
+void * quarter2(void *p){
+	process_stream(2);
+	return p;
+}
+
+void * quarter3(void *p){
+	process_stream(3);
 	return p;
 }
 
