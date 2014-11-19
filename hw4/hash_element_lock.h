@@ -17,7 +17,7 @@ template<class Ele, class Keytype> class hash {
   unsigned my_size_mask;
   list<Ele,Keytype> *entries;
   list<Ele,Keytype> *get_list(unsigned the_idx);
-  pthread_mutex_t *mutex_list;
+  pthread_rwlock_t *rwlock_list;
 
  public:
   void setup(unsigned the_size_log=5);
@@ -38,10 +38,10 @@ hash<Ele,Keytype>::setup(unsigned the_size_log){
   my_size_mask = (1 << my_size_log) - 1;
   entries = new list<Ele,Keytype>[my_size];
 
-  mutex_list = new pthread_mutex_t[my_size];
+  rwlock_list = new pthread_rwlock_t[my_size];
   unsigned i;
   for(i = 0; i < my_size; i++){
-	  pthread_mutex_init(&mutex_list[i], NULL);
+	  pthread_rwlock_init(&rwlock_list[i], NULL);
   }
 }
 
@@ -91,9 +91,9 @@ hash<Ele,Keytype>::cleanup(){
   delete [] entries;
 
   for(i = 0; i < my_size; i++){
-	  pthread_mutex_destroy(&mutex_list[i]);
+	  pthread_rwlock_destroy(&rwlock_list[i]);
   }
-  delete [] mutex_list;
+  delete [] rwlock_list;
 }
 
 template<class Ele, class Keytype> 
@@ -110,19 +110,33 @@ hash<Ele,Keytype>::lookup_and_insert_if_absent(Keytype the_key){
 
   unsigned i = HASH_INDEX(the_key,my_size_mask);
 
-  pthread_mutex_lock(&mutex_list[i]);
+  pthread_rwlock_rdlock(&rwlock_list[i]);
 
   l = &entries[i];
   Ele *e = l->lookup(the_key);
 
   if(!e){
-	  e = new Ele(the_key);
-	  l->push(e);
+	  pthread_rwlock_unlock(&rwlock_list[i]);
+
+	  pthread_rwlock_wrlock(&rwlock_list[i]);
+	  //Have to make sure noone else added this. While we waited.
+	  e = l->lookup(the_key);
+	  if(!e){ //We are the one adding. No-one has access to this pointer yet.
+		  //we can increment and leave immediately, without having to lock then unlock the entry.
+		  e = new Ele(the_key);
+		  l->push(e);
+		  e->count++;
+		  pthread_rwlock_unlock(&rwlock_list[i]);
+		  return;
+	  }
+	  //No need for writer lock anymore, or any lock really, we found the needed entry.
   }
-
+  //Entry Found.
+  pthread_rwlock_unlock(&rwlock_list[i]);
+  //Locking entry
+  e->lock();
   e->count++;
-
-  pthread_mutex_unlock(&mutex_list[i]);
+  e->unlock();
 
 }
 

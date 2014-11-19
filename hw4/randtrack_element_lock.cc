@@ -5,7 +5,7 @@
 
 
 #include "defs.h"
-#include "hash_list_lock.h"
+#include "hash_element_lock.h"
 
 #define SAMPLES_TO_COLLECT   10000000
 #define RAND_NUM_UPPER_BOUND   100000
@@ -43,13 +43,26 @@ class sample;
 
 class sample {
   unsigned my_key;
+  pthread_mutex_t my_lock;
  public:
   sample *next;
   unsigned count;
 
-  sample(unsigned the_key){my_key = the_key; count = 0;};
+  sample(unsigned the_key){my_key = the_key; count = 0; pthread_mutex_init(&my_lock, NULL);}
+
+  void ~sample(){
+	  pthread_mutex_destroy(&my_lock);
+  };
+
   unsigned key(){return my_key;}
   void print(FILE *f){printf("%d %d\n",my_key,count);}
+
+  int lock(){
+	  return pthread_mutex_lock(&my_lock);
+  }
+  int unlock(){
+	  return pthread_mutex_unlock(&my_lock);
+  }
 };
 
 // This instantiates an empty hash table
@@ -183,7 +196,7 @@ void process_stream(int i){
 	  // force the sample to be within the range of 0..RAND_NUM_UPPER_BOUND-1
 	  key = rnum % RAND_NUM_UPPER_BOUND;
 
-	  //Thread safe function
+	  //Thread safe function 
 	  h.lookup_and_insert_if_absent(key);
 	  
 
