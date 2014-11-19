@@ -5,8 +5,13 @@ CFLAGS =  -O3
 all: randtrack 
 
 randtrack: list.h hash.h defs.h randtrackThreads.cc
-	$(CC) $(CFLAGS) randtrackThreads.cc -o $(prog_name) -lpthread
+	$(CC) $(CFLAGS) randtrack.cc -o randtrack
 
-
+randtrackThreads: list.h hash.h defs.h randtrackThreads.cc
+	$(CC) $(CFLAGS) randtrackThreads.cc -o randtrack -lpthread
+	
+randtrack_global_lock: list.h hash.h defs.h randtrack_global_lock.cc
+	$(CC) $(CFLAGS) randtrack_global_lock.cc -o randtrack_global_lock -lpthread
+	
 clean:
 	rm -f *.o randtrack randtrack_global_lock randtrack_tm randtrack_list_lock randtrack_element_lock randtrack_reduction
