@@ -29,12 +29,8 @@ team_t team = {
 
 void process_stream(int i);
 void * full(void *p);
-void * half0(void *p);
-void * half1(void *p);
-void * quarter0(void *p);
-void * quarter1(void *p);
-void * quarter2(void *p);
-void * quarter3(void *p);
+void * half(void *p);
+void * quarter(void *p);
 
 unsigned num_threads;
 unsigned samples_to_skip;
@@ -57,7 +53,6 @@ class sample {
 // the element and key value here: element is "class sample" and
 // key value is "unsigned".  
 hash<sample,unsigned> h;
-
 
 int  
 main (int argc, char* argv[]){
@@ -90,15 +85,15 @@ main (int argc, char* argv[]){
 	  return -1;
   }
 
-  // initialize a 16K-entry (2**14) hash of empty lists
-  h.setup(14);
+
 
   pthread_t threads[4];
   int err;
 
-
   if(num_threads == 1){
-	  err = pthread_create(&threads[0], NULL, full, NULL);
+	  // initialize a 16K-entry (2**14) hash of empty lists
+	  h0.setup(14);
+	  err = pthread_create(&threads[0], NULL, full, (void *) &h0);
 	  if(err){
 		  printf("Thread creation error: %d", err);
 		  exit(EXIT_FAILURE);
@@ -107,14 +102,15 @@ main (int argc, char* argv[]){
 	  pthread_join(threads[0], NULL);
   }
   else {
+	  int x = 0;
 	  if(num_threads == 2){
-		  err = pthread_create(&threads[0], NULL, half0, NULL);
+		  err = pthread_create(&threads[0], NULL, half, (void *) &x);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-
-		  err = pthread_create(&threads[1], NULL, half1, NULL);
+		  x++;
+		  err = pthread_create(&threads[1], NULL, half, (void *) &x);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
@@ -124,29 +120,29 @@ main (int argc, char* argv[]){
 		  pthread_join(threads[1], NULL);
 	  }
 	  else{// 4
-		  err = pthread_create(&threads[0], NULL, quarter0, NULL);
+		  err = pthread_create(&threads[0], NULL, quarter, (void *) &x);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-
-		  err = pthread_create(&threads[1], NULL, quarter1, NULL);
+		  x++;
+		  err = pthread_create(&threads[1], NULL, quarter, (void *) &x);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-
-		  err = pthread_create(&threads[2], NULL, quarter2, NULL);
+		  x++;
+		  err = pthread_create(&threads[2], NULL, quarter, (void *) &x);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
-
-		  err = pthread_create(&threads[3], NULL, quarter3, NULL);
+		  x++;
+		  err = pthread_create(&threads[3], NULL, quarter, (void *) &x);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
-		  }
+		  } 
 
 		  pthread_join(threads[0], NULL);
 		  pthread_join(threads[1], NULL);
@@ -204,38 +200,16 @@ void * full(void *p){
 	return p;
 }
 
-void * half0(void *p){
-	process_stream(0);
-	process_stream(1);
-	//("%d\n", *((int *) p));
+void * half(void *p){
+	process_stream(*((int *) p));
+	process_stream(*((int *) p) + 1);
+
 	return p;
 }
 
-void * half1(void *p){
-	process_stream(2);
-	process_stream(3);
-	//printf("%d\n", *((int *) p));
+void * quarter(void *p){
+	process_stream(*((int *) p));
+
 	return p;
 }
-
-void * quarter0(void *p){
-	process_stream(0);
-	return p;
-}
-
-void * quarter1(void *p){
-	process_stream(1);
-	return p;
-}
-
-void * quarter2(void *p){
-	process_stream(2);
-	return p;
-}
-
-void * quarter3(void *p){
-	process_stream(3);
-	return p;
-}
-
 
