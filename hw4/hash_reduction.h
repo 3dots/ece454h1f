@@ -99,7 +99,7 @@ hash<Ele,Keytype>::combine_with(class hash *h){
 	list<Ele,Keytype> *my_l, *new_l;
 
 	for(i = 0; i < my_size ; i++){
-		my_l = entries[i];
+		my_l = get_list(i);
 		new_l = h->get_list(i);
 
 		my_l->combine_with(new_l);

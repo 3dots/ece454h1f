@@ -27,10 +27,14 @@ team_t team = {
     ""                            /* Second member email address */
 };
 
-void process_stream(int i);
+void process_stream(int i, void *p);
 void * full(void *p);
-void * half(void *p);
-void * quarter(void *p);
+void * half0(void *p);
+void * half1(void *p);
+void * quarter0(void *p);
+void * quarter1(void *p);
+void * quarter2(void *p);
+void * quarter3(void *p);
 
 unsigned num_threads;
 unsigned samples_to_skip;
