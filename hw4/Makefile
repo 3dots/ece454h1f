@@ -4,7 +4,7 @@ CFLAGS =  -O3
 
 all: randtrack 
 
-randtrack: list.h hash.h defs.h randtrackThreads.cc
+randtrack: list.h hash.h defs.h randtrack.cc
 	$(CC) $(CFLAGS) randtrack.cc -o randtrack
 
 randtrackThreads: list.h hash.h defs.h randtrackThreads.cc
