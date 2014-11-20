@@ -22,5 +22,14 @@ If by this one function you mean uniting all the operations that need to be atom
 Q6.
 Whatever floats your boat. If you want to write a function that locks/unlocks a particular list at index i, instead of just locking/unlocking it then and there, sure.
 
+In the end, the way I implemented the list_lock version was by uniting all the atomic code into a lookup_and_insert_if_absent(Keytype key) call to the hash class. Inside there, all the thread safety (locking) operations happen. It is important to note that the setup and cleanup functions were changed as well, since we added to the actual data structure by adding an array of mutexes.
+
+For the element version, I used the pthread_rwlock_t mutex api because a: it's also in the pthread.h, and b: noone said I can't. This way I avoided any headaches associated with the special case of the element with that key not existing. Normal operation only asks for a reader lock, whereas if a new element has to be inserted, you give up your reader lock and ask for a writer lock. Once you have it, double check the element is still missing, then add, initialize and leave. I had to modify the element class, in this case: the sample class to include a normal mutex lock, which is initialized in the constructor. A destructor had to be added, so that the mutex is destroyed properly during cleanup.
+
 Q7.
 Refer to Q2.
+
+Q8
+Pros: Don't have to worry about thread synchronization or any race conditions. Cons: Need to allocate more memory foor each induvidual thread to use, instead of the single struture.
+
+
