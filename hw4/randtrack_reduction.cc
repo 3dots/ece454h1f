@@ -102,7 +102,7 @@ main (int argc, char* argv[]){
   int err;
 
   if(num_threads == 1){
-	  err = pthread_create(&threads[0], NULL, full, (void *) &h0);
+	  err = pthread_create(&threads[0], NULL, full, NULL);
 	  if(err){
 		  printf("Thread creation error: %d", err);
 		  exit(EXIT_FAILURE);
@@ -112,13 +112,13 @@ main (int argc, char* argv[]){
   }
   else {
 	  if(num_threads == 2){
-		  err = pthread_create(&threads[0], NULL, half0, (void *) &h0);
+		  err = pthread_create(&threads[0], NULL, half0, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
 
-		  err = pthread_create(&threads[1], NULL, half1, (void *) &h1);
+		  err = pthread_create(&threads[1], NULL, half1, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
@@ -132,25 +132,25 @@ main (int argc, char* argv[]){
 	  else{// 4
 
 
-		  err = pthread_create(&threads[0], NULL, quarter0, (void *) &h0);
+		  err = pthread_create(&threads[0], NULL, quarter0, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
 
-		  err = pthread_create(&threads[1], NULL, quarter1, (void *) &h1);
+		  err = pthread_create(&threads[1], NULL, quarter1, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
 
-		  err = pthread_create(&threads[2], NULL, quarter2, (void *) &h2);
+		  err = pthread_create(&threads[2], NULL, quarter2, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
 		  }
 
-		  err = pthread_create(&threads[3], NULL, quarter3, (void *) &h3);
+		  err = pthread_create(&threads[3], NULL, quarter3, NULL);
 		  if(err){
 			  printf("Thread creation error: %d", err);
 			  exit(EXIT_FAILURE);
@@ -179,13 +179,11 @@ main (int argc, char* argv[]){
   exit(EXIT_SUCCESS);
 }
 
-void process_stream(int i, void *p){
+void process_stream(int i, hash<sample,unsigned> *h){
 	int j,k;
 	int rnum;
 	unsigned key;
 	sample *s;
-
-	hash<sample,unsigned> *h = (hash<sample,unsigned> *) p;
 
 	rnum = i;
 	// collect a number of samples
@@ -213,45 +211,45 @@ void process_stream(int i, void *p){
 }
 
 void * full(void *p){
-	process_stream(0, p);
-	process_stream(1, p);
-	process_stream(2, p);
-	process_stream(3, p);
+	process_stream(0, &h0);
+	process_stream(1, &h0);
+	process_stream(2, &h0);
+	process_stream(3, &h0);
 
 	return p;
 }
 
 void * half0(void *p){
-	process_stream(0, p);
-	process_stream(1, p);
+	process_stream(0, &h0);
+	process_stream(1, &h0);
 	//("%d\n", *((int *) p));
 	return p;
 }
 
 void * half1(void *p){
-	process_stream(2, p);
-	process_stream(3, p);
+	process_stream(2, &h1);
+	process_stream(3, &h1);
 	//printf("%d\n", *((int *) p));
 	return p;
 }
 
 void * quarter0(void *p){
-	process_stream(0, p);
+	process_stream(0, &h0);
 	return p;
 }
 
 void * quarter1(void *p){
-	process_stream(1, p);
+	process_stream(1, &h1);
 	return p;
 }
 
 void * quarter2(void *p){
-	process_stream(2, p);
+	process_stream(2, &h2);
 	return p;
 }
 
 void * quarter3(void *p){
-	process_stream(3, p);
+	process_stream(3, &h3);
 	return p;
 }
 

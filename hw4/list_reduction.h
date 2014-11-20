@@ -100,7 +100,7 @@ list<Ele,Keytype>::cleanup(){
 
 template<class Ele, class Keytype>
 void
-list<Ele,Keytype>::combine_with(class list *l){
+list<Ele,Keytype>::combine_with(class list<Ele,Keytype> *l){
 	Ele *new_e_tmp = l->head();
 	Ele *my_e;
 
@@ -126,6 +126,7 @@ list<Ele,Keytype>::combine_with(class list *l){
 		if(!my_e){//This element wasn't in my list
 
 			Ele *e_copy = new Ele(new_e_tmp->key());
+			e_copy->count = new_e_tmp->count;
 
 			push(e_copy);
 		}

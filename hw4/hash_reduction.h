@@ -93,7 +93,7 @@ hash<Ele,Keytype>::insert(Ele *e){
 
 template<class Ele, class Keytype>
 void
-hash<Ele,Keytype>::combine_with(class hash *h){
+hash<Ele,Keytype>::combine_with(class hash<Ele,Keytype> *h){
 	//We are assuming these are equal lists.
 	unsigned i;
 	list<Ele,Keytype> *my_l, *new_l;
