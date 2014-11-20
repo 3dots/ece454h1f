@@ -1,4 +1,4 @@
-sampleSkip=50
+sampleSkip=100
 
 rm ./to ./garbage ./timing_results
 
