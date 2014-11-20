@@ -95,10 +95,13 @@ template<class Ele, class Keytype>
 void
 hash<Ele,Keytype>::combine_with(class hash *h){
 	//We are assuming these are equal lists.
-	unsigned i, j;
+	unsigned i;
 	list<Ele,Keytype> *my_l, *new_l;
 
 	for(i = 0; i < my_size ; i++){
+		if(DEBUG_REDUCTION){
+			printf("Hash list index: %u. Attempting to combine.\n", i);
+		}
 		my_l = get_list(i);
 		new_l = h->get_list(i);
 

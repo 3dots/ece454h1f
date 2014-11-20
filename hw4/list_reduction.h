@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 
+#define DEBUG_REDUCTION 0
+
 template<class Ele, class Keytype> class list;
 
 template<class Ele, class Keytype> class list {
@@ -104,10 +106,28 @@ list<Ele,Keytype>::combine_with(class list *l){
 
 	while (new_e_tmp){//Transversing the new given list.
 		//Looking for the same element in my list.
+		if(DEBUG_REDUCTION){
+			printf("The new list was not empty.\nAbout to look up key: %u\n", new_e_tmp->key());
+		}
+
 		my_e = lookup(new_e_tmp->key());
 
+		if(DEBUG_REDUCTION){
+			printf("The lookup result address is %d\n", my_e);
+			unsigned int a = new_e_tmp->key();
+			unsigned int b;
+			if(my_e != NULL)
+				 b = my_e->key();
+			else
+				 b = 0;
+			printf("My element's key: %u. The desired key: %u.\n", b, a);
+		}
+
 		if(!my_e){//This element wasn't in my list
-			push(new_e_tmp);
+
+			Ele e_copy = new Ele(new_e_tmp->key());
+
+			push(e_copy);
 		}
 		else{//Combine counts
 			my_e->count += new_e_tmp->count;
