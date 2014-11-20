@@ -30,6 +30,130 @@ Q7.
 Refer to Q2.
 
 Q8
-Pros: Don't have to worry about thread synchronization or any race conditions. Cons: Need to allocate more memory foor each induvidual thread to use, instead of the single struture.
+Pros: Don't have to worry about thread synchronization or any race conditions. Cons: Need to allocate more memory for each induvidual thread to use, instead of the single struture.
+
+
+Timing results for samples_to_skip = 50. Note: each elapsed time is an average of 5 runs.
+
++------------------------+----------+------------------+
+| samples_to_skip = 50   | Thread # | Elapsed time [s] |
++------------------------+----------+------------------+
+| randtrack              |          | 17.70            |
++------------------------+----------+------------------+
+| randtrack_global_lock  | 1        | 19.37            |
++------------------------+----------+------------------+
+|                        | 2        | 14.51            |
++------------------------+----------+------------------+
+|                        | 4        | 20.93            |
++------------------------+----------+------------------+
+| randtrack_tm           | 1        | 20.94            |
++------------------------+----------+------------------+
+|                        | 2        | 21.87            |
++------------------------+----------+------------------+
+|                        | 4        | 13.80            |
++------------------------+----------+------------------+
+| randtrack_list_lock    | 1        | 19.81            |
++------------------------+----------+------------------+
+|                        | 2        | 10.69            |
++------------------------+----------+------------------+
+|                        | 4        | 6.77             |
++------------------------+----------+------------------+
+| randtrack_element_lock | 1        | 22.45            |
++------------------------+----------+------------------+
+|                        | 2        | 12.14            |
++------------------------+----------+------------------+
+|                        | 4        | 8.24             |
++------------------------+----------+------------------+
+| randtrack_reduction    | 1        | 17.71            |
++------------------------+----------+------------------+
+|                        | 2        | 8.94             |
++------------------------+----------+------------------+
+|                        | 4        | 4.52             |
++------------------------+----------+------------------+
+
+Q9.
+
+Overhead table:
+
++------------------------+-----------+
+|                        | Ovearhead |
++------------------------+-----------+
+| randtrack_global_lock  | 1.09      |
++------------------------+-----------+
+| randtrack_tm           | 1.18      |
++------------------------+-----------+
+| randtrack_list_lock    | 1.12      |
++------------------------+-----------+
+| randtrack_element_lock | 1.27      |
++------------------------+-----------+
+| randtrack_reduction    | 1.00      |
++------------------------+-----------+
+
+Q10.
+
+randtrack_global_lock:
+The single thread version has some overhead. For two threads, the system speeds up somewhat, however for 4 threads, we actually perform slower that with one. This must be because at 4 threads, they start blocking each far too much.
+
+randtrack_tm:
+Quite a bit of overhead. For only two threads, we actually get a slower result than for one. I can only speculate that the implementation of this transactional memory was aimed at more threads, as can be inferred from the much faster result at four threads.
+
+randtrack_list_lock:
+A bit of overhead. As thread # rises, speeds up significantly. Actually, this is the fastest multi-threaded version that invloves the synchronised data structure.
+
+randtrack_element_lock:
+Largest overhead. Speeds up as thread # rises, although not as effectivly as the list_lock. This is most likely due to the fact that these "lists" into which a sample may fall in, aren't actually all that long. Also, there is a lot of repeated access to the same elements in the list. Thus locking element by element doesnt yield as much benefit, as it would've say if the access there were big lists with a lot off access/changing to many different entries instead of only to a few.
+
+randtrack_reduction:
+Almost no overhead. Same speed as original at one thread, not surprisingly. As thread # rises, it speeds up a lot. In fact it has the fastest times for both 2 and 4 threads. The lack of any kind of wait for synchronisation wins you a lot of time, despite having to combine results in the end.
+
+Q11.
+
+Timing results for samples_to_skip = 100. Note: each elapsed time is an average of 5 runs.
+
++------------------------+----------+------------------+
+| samples_to_skip = 100  | Thread # | Elapsed time [s] |
++------------------------+----------+------------------+
+| randtrack              |          | 35.04            |
++------------------------+----------+------------------+
+| randtrack_global_lock  | 1        | 36.62            |
++------------------------+----------+------------------+
+|                        | 2        | 22.46            |
++------------------------+----------+------------------+
+|                        | 4        | 19.06            |
++------------------------+----------+------------------+
+| randtrack_tm           | 1        | 38.07            |
++------------------------+----------+------------------+
+|                        | 2        | 29.86            |
++------------------------+----------+------------------+
+|                        | 4        | 16.87            |
++------------------------+----------+------------------+
+| randtrack_list_lock    | 1        | 37.19            |
++------------------------+----------+------------------+
+|                        | 2        | 19.36            |
++------------------------+----------+------------------+
+|                        | 4        | 11.18            |
++------------------------+----------+------------------+
+| randtrack_element_lock | 1        | 39.88            |
++------------------------+----------+------------------+
+|                        | 2        | 20.82            |
++------------------------+----------+------------------+
+|                        | 4        | 12.33            |
++------------------------+----------+------------------+
+| randtrack_reduction    | 1        | 35.05            |
++------------------------+----------+------------------+
+|                        | 2        | 17.57            |
++------------------------+----------+------------------+
+|                        | 4        | 8.92             |
++------------------------+----------+------------------+
+
+Everything takes longer but the patterns of speed up seem to be preserved, except in the case of randtrack_global_lock, where the transition from 2 to 4 now is also a speedup.
+
+Everything is slower because we spend more time twidling our thumbs with the rand_r function between data storage actions.
+
+Because of this, the blockage that randtrack_global_lock expirienced at 4 threads is no longer an issue due to these longer waiting times between data storage.
+
+Q12.
+
+If these testing conditions are indicative of the actual cases that this software will be working on, then I would recommend shipping the randtrack_list_lock version. It benefits from multiple cores very well and doesn't take up extra memory like reduction would. The element_lock version might be more extendable to larger test cases, but since we have such small hash sublists, it is not worth the overhead. The rest simply don't perform that well.
 
 
