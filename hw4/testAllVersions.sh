@@ -3,7 +3,7 @@ make clean
 make randtrack
 sampleSkip=50
 
-./randtrack_reduction 1 $sampleSkip > r
+./randtrack 1 $sampleSkip > r
 sort -n r > rs
 
 echo "Original randtrack results generated."
