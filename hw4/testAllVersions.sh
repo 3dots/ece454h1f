@@ -1,7 +1,7 @@
 rm r rs
 make clean
 make randtrack
-sampleSkip=100
+sampleSkip=50 
 
 ./randtrack 1 $sampleSkip > r
 sort -n r > rs
