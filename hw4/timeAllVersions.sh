@@ -106,7 +106,7 @@ do
 	for runCount in 1 2 3 4 5
 	do
 	
-		/usr/bin/time -f %e -o ./to ./randtrack_list_lock $numProc $sampleSkip > ./garbage
+		/usr/bin/time -f %e -o ./to ./randtrack_element_lock $numProc $sampleSkip > ./garbage
 		cat ./to >> timing_results
 		echo "randtrack_element_lock with thread #: $numProc Finished. Run count: $runCount"
 	done
@@ -129,7 +129,7 @@ do
 	for runCount in 1 2 3 4 5
 	do
 	
-		/usr/bin/time -f %e -o ./to ./randtrack_list_lock $numProc $sampleSkip > ./garbage
+		/usr/bin/time -f %e -o ./to ./randtrack_reduction $numProc $sampleSkip > ./garbage
 		cat ./to >> timing_results
 		echo "randtrack_reduction with thread #: $numProc Finished. Run count: $runCount"
 	done
