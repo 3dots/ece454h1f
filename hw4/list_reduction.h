@@ -125,7 +125,7 @@ list<Ele,Keytype>::combine_with(class list *l){
 
 		if(!my_e){//This element wasn't in my list
 
-			Ele e_copy = new Ele(new_e_tmp->key());
+			Ele *e_copy = new Ele(new_e_tmp->key());
 
 			push(e_copy);
 		}
