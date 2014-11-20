@@ -1,0 +1,130 @@
+Starting randtrack
+
+randtrack
+35.04
+35.04
+35.06
+35.03
+35.05
+
+
+Starting randtrack_global_lock
+
+randtrack_global_lock with thread #: 1
+36.62
+36.63
+36.62
+36.62
+36.62
+
+randtrack_global_lock with thread #: 2
+22.46
+22.45
+22.43
+22.57
+22.37
+
+randtrack_global_lock with thread #: 4
+18.52
+18.95
+18.81
+19.26
+19.77
+
+
+Starting randtrack_tm
+
+randtrack_tm with thread #: 1
+38.03
+38.04
+38.23
+38.02
+38.01
+
+randtrack_tm with thread #: 2
+30.97
+30.07
+29.60
+29.30
+29.37
+
+randtrack_tm with thread #: 4
+16.47
+17.51
+16.66
+17.58
+16.15
+
+
+Starting randtrack_list_lock
+
+randtrack_list_lock with thread #: 1
+37.20
+37.18
+37.20
+37.18
+37.19
+
+randtrack_list_lock with thread #: 2
+19.36
+19.35
+19.36
+19.36
+19.36
+
+randtrack_list_lock with thread #: 4
+11.17
+11.24
+11.24
+10.89
+11.36
+
+
+Starting randtrack_element_lock
+
+randtrack_element_lock with thread #: 1
+39.89
+39.87
+39.88
+39.88
+39.88
+
+randtrack_element_lock with thread #: 2
+20.82
+20.82
+20.82
+20.82
+20.83
+
+randtrack_element_lock with thread #: 4
+12.47
+12.41
+12.66
+11.51
+12.61
+
+
+Starting randtrack_reduction
+
+randtrack_reduction with thread #: 1
+35.05
+35.05
+35.04
+35.05
+35.05
+
+randtrack_reduction with thread #: 2
+17.58
+17.57
+17.57
+17.57
+17.58
+
+randtrack_reduction with thread #: 4
+8.90
+8.88
+9.01
+8.93
+8.89
+
+
