@@ -1,6 +1,20 @@
 #ifndef _util_h
 #define _util_h
 
+struct thread_data{
+	char* outboard;
+	char* inboard;
+	int nrows;
+	int ncols;
+	int gens_max;
+	int sector;
+	int *status;
+	pthread_mutex_t *mutex;
+	pthread_cond_t *cv;
+
+};
+
+
 /**
  * C's mod ('%') operator is mathematically correct, but it may return
  * a negative remainder even when both inputs are nonnegative.  This

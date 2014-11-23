@@ -20,11 +20,23 @@ game_of_life (char* outboard,
  * parallelized.  Useful for checking output.
  */
 char*
-sequential_game_of_life (char* outboard, 
-			 char* inboard,
-			 const int nrows,
-			 const int ncols,
-			 const int gens_max);
+sequential_game_of_life (char* outboard,
+    char* inboard,
+    const int nrows,
+    const int ncols,
+    const int gens_max);
+
+char*
+sequential_game_of_life_parallel (char* outboard,
+    char* inboard,
+    const int nrows,
+    const int ncols,
+    const int gens_max,
+
+    const int sector,
+    int *status,
+    pthread_mutex_t *mutex,
+    pthread_cond_t *cv);
 
 
 #endif /* _life_h */
