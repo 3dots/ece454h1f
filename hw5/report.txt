@@ -1,0 +1,6 @@
+
+Before touching parallelization, I did the following:
+
+Got rid of the modulus operations, and replaced them with if statements that depend on whether i or j are on the edges of the square lattice. Got a 3x speedup.
+
+Switched inner loop order to make use of cache better. (consecutive i's and not consecutive j's which jump us by LDA) Got 30% speedup from previous version.
