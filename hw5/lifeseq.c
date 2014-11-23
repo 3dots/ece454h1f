@@ -39,10 +39,31 @@ sequential_game_of_life (char* outboard,
         {
             for (j = 0; j < ncols; j++)
             {
-                const int inorth = mod (i-1, nrows);
-                const int isouth = mod (i+1, nrows);
-                const int jwest = mod (j-1, ncols);
-                const int jeast = mod (j+1, ncols);
+                int inorth;
+                int isouth;
+                int jwest;
+                int jeast;
+
+                if(i == 0)
+                	inorth = nrows - 1;
+                else
+                	inorth = i-1;
+
+                if(i == nrows - 1)
+                	isouth = 0;
+                else
+                	isouth = i+1;
+
+                if(j == 0)
+                	jwest = ncols - 1;
+                else
+                	jwest = j-1;
+
+                if(j == ncols - 1)
+                	jeast = 0;
+                else
+                	jeast = j+1;
+
 
                 const char neighbor_count = 
                     BOARD (inboard, inorth, jwest) + 
