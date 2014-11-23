@@ -53,7 +53,7 @@ game_of_life (char* outboard,
 
 	struct thread_data ctx[4];
 	int i;
-	for(i = 0; i < 4; i++){
+	for(i = 0; i < 2; i++){
 		ctx[i].outboard = outboard;
 		ctx[i].inboard = inboard;
 		ctx[i].nrows = nrows;
@@ -63,7 +63,7 @@ game_of_life (char* outboard,
 		ctx[i].mutex = &mutex;
 		ctx[i].cv = &cv;
 
-		ctx[i].sector = i;
+		ctx[i].sector = (i == 0) ? 0 : 2;
 
 		err = pthread_create(&threads[i], NULL, game_of_life_thread_func, &ctx[i]);
 		if(err){
@@ -78,8 +78,8 @@ game_of_life (char* outboard,
 
 	pthread_join(threads[0], &t_status);
 	pthread_join(threads[1], NULL);
-	pthread_join(threads[2], NULL);
-	pthread_join(threads[3], NULL);
+	//pthread_join(threads[2], NULL);
+	//pthread_join(threads[3], NULL);
 
 	pthread_mutex_destroy(&mutex);
 	pthread_cond_destroy(&cv);

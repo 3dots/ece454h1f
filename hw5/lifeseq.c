@@ -88,6 +88,9 @@ sequential_game_of_life_parallel (char* outboard,
     int row_start, col_start;
     int row_end, col_end;
 
+    row_start = 0;
+    row_end = nrows;
+    /*
     //Splitting what quadrant we work on.
     if(sector == 0 || sector == 2){
     	row_start = 0;
@@ -97,7 +100,7 @@ sequential_game_of_life_parallel (char* outboard,
     else{
     	row_start = nrows/2;
     	row_end = nrows;
-    }
+    }*/
 
     if(sector == 0 || sector == 1){
     	col_start = 0;
@@ -113,6 +116,7 @@ sequential_game_of_life_parallel (char* outboard,
 
     for (curgen = 0; curgen < gens_max; curgen++)
     {
+
         /* HINT: you'll be parallelizing these loop(s) by doing a
            geometric decomposition of the output */
     	for (j = col_start; j < col_end; j++)
@@ -131,7 +135,7 @@ sequential_game_of_life_parallel (char* outboard,
 
         pthread_mutex_lock(mutex);
         *status = *status | (1 << sector);
-        if(*status == 0b1111){
+        if(*status == 0b0101){
         	*status = 0;
         	pthread_cond_broadcast(cv);
         }
