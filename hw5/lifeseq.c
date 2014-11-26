@@ -10,6 +10,11 @@
 #include "life.h"
 #include "util.h"
 
+#define MEMORY_BLOCKING 1
+#define J_BLOCK_SIZE 32
+#define I_BLOCK_SIZE 32
+
+
 /**
  * Swapping the two boards only involves swapping pointers, not
  * copying values.
@@ -33,6 +38,8 @@
 		BOARD (__inboard, __isouth, __jeast);		\
 											\
 		BOARD(__outboard, __i, __j) = alivep (__neighbor_count, BOARD (__inboard, __i, __j))
+
+#define COUNT_AND_BOARD_IJ(__inboard, __outboard, __neighbor_count, __i, __j) COUNT_AND_BOARD(__inboard, __outboard, __neighbor_count, __i, __j, __i-1, __i+1, __j-1, __j+1)
 
 
 static inline void update(int i, int j, char* outboard,
@@ -79,6 +86,18 @@ static inline void update(int i, int j, char* outboard,
 
 	BOARD(outboard, i, j) = alivep (neighbor_count, BOARD (inboard, i, j));
 }
+
+#ifdef MEMORY_BLOCKING
+
+int min(int x, int y){
+	if(x > y){
+		return y;
+	}
+	else
+		return x;
+}
+
+#endif
 
 
     char*
@@ -206,14 +225,37 @@ sequential_game_of_life_parallel (char* outboard,
 		}
 
 		//Main code part, no if/else branching
+
+#ifdef MEMORY_BLOCKING
+		int ii, jj;
+
+    	for (j = col_start; j < col_end; j+= J_BLOCK_SIZE)
+        {
+            for (i = row_start; i < row_end; i+= I_BLOCK_SIZE)
+            {
+            	for(jj = j; jj < min(j + J_BLOCK_SIZE, col_end); jj++)
+            	{
+            		for(ii = i; ii < min(i + I_BLOCK_SIZE, row_end); ii++)
+            		{
+            			COUNT_AND_BOARD_IJ(inboard, outboard, neighbor_count, ii, jj);
+            		}
+            	}
+            }
+        }
+
+#else
+
+
     	for (j = col_start; j < col_end; j++)
         {
             for (i = row_start; i < row_end; i++)
             {
-            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, j, i - 1, i + 1, j - 1, j + 1);
+            	COUNT_AND_BOARD_IJ(inboard, outboard, neighbor_count, i, j);
 
             }
         }
+
+#endif
         //SWAP_BOARDS( outboard, inboard );
         //I don't like that weird do while wrapper.
         char *temp = outboard;
