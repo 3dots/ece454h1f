@@ -22,6 +22,18 @@
 
 #define BOARD( __board, __i, __j )  (__board[(__i) + LDA*(__j)])
 
+#define COUNT_AND_BOARD(__inboard, __outboard, __neighbor_count, __i, __j, __inorth, __isouth, __jwest, __jeast) 	__neighbor_count = \
+		BOARD (__inboard, __inorth, __jwest) + 	\
+		BOARD (__inboard, __inorth, __j) +		\
+		BOARD (__inboard, __inorth, __jeast) +	\
+		BOARD (__inboard, __i, __jwest) +			\
+		BOARD (__inboard, __i, __jeast) +			\
+		BOARD (__inboard, __isouth, __jwest) +	\
+		BOARD (__inboard, __isouth, __j) +		\
+		BOARD (__inboard, __isouth, __jeast);		\
+											\
+		BOARD(__outboard, __i, __j) = alivep (__neighbor_count, BOARD (__inboard, __i, __j))
+
 
 static inline void update(int i, int j, char* outboard,
         char* inboard,
@@ -90,38 +102,115 @@ sequential_game_of_life_parallel (char* outboard,
 
     //Splitting what quadrant we work on.
     if(sector == 0 || sector == 2){
-    	row_start = 0;
+    	row_start = 1;
     	row_end = nrows/2;
     }
 
     else{
     	row_start = nrows/2;
-    	row_end = nrows;
+    	row_end = nrows - 1;
     }
 
     if(sector == 0 || sector == 1){
-    	col_start = 0;
+    	col_start = 1;
     	col_end = ncols/2;
     }
 
     else{
     	col_start = ncols/2;
-    	col_end = ncols;
+    	col_end = ncols - 1;
     }
 
-
+    const int LDA = nrows;
 
     for (curgen = 0; curgen < gens_max; curgen++)
     {
+		char neighbor_count;
 
-        /* HINT: you'll be parallelizing these loop(s) by doing a
-           geometric decomposition of the output */
-    	for (j = col_start; j < col_end; j++)
-        {
+		//The overlapping sections
+		if (sector == 0){
+			//j == 0
+			//i == 0
+			COUNT_AND_BOARD(inboard, outboard, neighbor_count, 0, 0, nrows - 1, 1, ncols - 1, 1);
 
+			//j == 0
+			//i == 1 -> i == nrows/2 - 1
             for (i = row_start; i < row_end; i++)
             {
-            	update(i, j, outboard, inboard, nrows, ncols);
+            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, 0, i - 1, i + 1, ncols - 1, 1);
+            }
+
+            //j == 1 -> j == ncols/2 - 1
+            //i == 0
+            for (j = col_start; j < col_end; j++)
+            {
+            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, 0, j, nrows - 1, 1, j - 1, j + 1);
+            }
+		}
+		else if(sector == 1){
+			//j == 0
+			//i == nrows - 1
+			COUNT_AND_BOARD(inboard, outboard, neighbor_count, nrows - 1, 0, nrows - 2, 0, ncols - 1, 1);
+
+			//j == 0
+			//i == nrows/2 -> i == nrows - 2
+            for (i = row_start; i < row_end; i++)
+            {
+            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, 0, i - 1, i + 1, ncols - 1, 1);
+            }
+
+            //j == 1 -> j == ncols/2 - 1
+            //i == nrows - 1
+            for (j = col_start; j < col_end; j++)
+            {
+            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, nrows - 1, j, nrows - 2, 0, j - 1, j + 1);
+            }
+		}
+		else if(sector == 2){
+			//j == ncols - 1
+			//i == 0
+			COUNT_AND_BOARD(inboard, outboard, neighbor_count, 0, ncols - 1, nrows - 1, 1, ncols - 2, 0);
+
+			//j == ncols - 1
+			//i == 1 -> i == nrows/2 - 1
+            for (i = row_start; i < row_end; i++)
+            {
+            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, ncols - 1, i - 1, i + 1, ncols - 2, 0);
+            }
+
+            //j == ncols/2 -> j == ncols - 2
+            //i == 0
+            for (j = col_start; j < col_end; j++)
+            {
+            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, 0, j, nrows - 1, 1, j - 1, j + 1);
+            }
+		}
+		else{
+			//j == ncols - 1
+			//i == nrows - 1
+			COUNT_AND_BOARD(inboard, outboard, neighbor_count, nrows - 1, ncols - 1, nrows - 2, 0, ncols - 2, 0);
+
+			//j == ncols - 1
+			//i == nrows/2 -> i == nrows - 2
+            for (i = row_start; i < row_end; i++)
+            {
+            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, ncols - 1, i - 1, i + 1, ncols - 2, 0);
+            }
+
+            //j == ncols/2 -> j == ncols - 2
+            //i == nrows - 1
+            for (j = col_start; j < col_end; j++)
+            {
+            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, nrows - 1, j, nrows - 2, 0, j - 1, j + 1);
+            }
+		}
+
+		//Main code part, no if/else branching
+    	for (j = col_start; j < col_end; j++)
+        {
+            for (i = row_start; i < row_end; i++)
+            {
+            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, j, i - 1, i + 1, j - 1, j + 1);
 
             }
         }

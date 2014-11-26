@@ -1,4 +1,4 @@
-ECE454H1F - Lab5
+﻿ECE454H1F - Lab5
 
 by: 	Viktor Riabtsev
 	997544420
@@ -25,3 +25,7 @@ I was actually doing my timing tests through putty ssh connection to an ug machi
 When tested in the lab though, the parallization got me up to overall 8.1 increase, as desired.
 
 Sidenote: the checks that the input number of rows and columns are equal, less than 10,000, and are a power of two happen along other checks in load_dimensions() in load.c .
+
+FURTHER ADDITION:
+
+After all this, I took a closer look at my method of getting rid of the modulus call. I was doing if/else on the i and j to determine if I need to overlap. Thats an extra four branches per loop than necessary. So created a macro COUNT_AND_BOARD, which does the counting and then BOARD's the final values. Except I pass the inorh,isouth and so on to it. This way I, depending on the sector, first deal with the overlapping sections. (ie for example, for sector = 0, I deal with the i ==0, j==0 point separately, then do the strip i == 1 -> i == nrows/2 – 1 j == 0, and the strip i == 0 j == 1 -> j == ncols/2  - 1) then the main loop does not contain any branches and simply uses i-1, i+1 and so on. This bought me some additional speed up which hopefully let me get full performance marks.
