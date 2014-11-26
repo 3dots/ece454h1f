@@ -42,6 +42,18 @@ load_dimensions (FILE* input, int* nrows, int* ncols)
       fclose (input);
       exit (EXIT_FAILURE);
     }
+
+  //The unsigned casting stuff is checking that it's not a power of two.
+  // if x is unsigned int, and not 0, then x & (x-1) == 0 iff x is a power of two.
+  if (*ncols != *nrows || *ncols > 10000 || *nrows > 10000 ||
+	  ( ( (unsigned int) *ncols ) & ( ( (unsigned int) *ncols ) - 1 ) ) ||
+	  ( ( (unsigned int) *nrows ) & ( ( (unsigned int) *nrows ) - 1 ) )  ){
+      fprintf (stderr, "*** Number of cols %d and rows %d must be equal, each be a power of two, and not exceed 10,0000 ***\n",
+    		   *ncols, *nrows);
+      fclose (input);
+      exit (EXIT_FAILURE);
+  }
+
 }
 
 static char*

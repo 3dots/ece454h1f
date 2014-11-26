@@ -17,15 +17,15 @@
  ****************************************************************************/
 void * game_of_life_thread_func(void *p){
 	struct thread_data *input = (struct thread_data *) p;
-	return (void *) sequential_game_of_life_parallel(input->outboard,
-											input->inboard,
-											input->nrows,
-											input->ncols,
-											input->gens_max,
-											input->sector,
-											input->status,
-											input->mutex,
-											input->cv);
+	return (void *) sequential_game_of_life_parallel(	input->outboard,
+														input->inboard,
+														input->nrows,
+														input->ncols,
+														input->gens_max,
+														input->sector,
+														input->status,
+														input->mutex,
+														input->cv);
 }
 
 
