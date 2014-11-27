@@ -12,7 +12,7 @@
 
 //#define MEMORY_BLOCKING_J
 //#define MEMORY_BLOCKING_I
-//#define J_BLOCK_SIZE 32
+#define J_BLOCK_SIZE 32
 //#define I_BLOCK_SIZE 32
 
 
@@ -88,8 +88,7 @@ static inline void update(int i, int j, char* outboard,
 	BOARD(outboard, i, j) = alivep (neighbor_count, BOARD (inboard, i, j));
 }
 
-/*
-#ifdef MEMORY_BLOCKING_I
+
 
 int min(int x, int y){
 	if(x > y){
@@ -98,8 +97,7 @@ int min(int x, int y){
 	else
 		return x;
 }
-
-#endif
+/*
 
 #ifndef MEMORY_BLOCKING_I
 #ifdef MEMORY_BLOCKING_J
@@ -241,44 +239,17 @@ sequential_game_of_life_parallel (char* outboard,
 		}
 
 		//Main code part, no if/else branching
-/*
-#ifdef MEMORY_BLOCKING_J
-#ifdef MEMORY_BLOCKING_I
-		int ii, jj;
 
-    	for (j = col_start; j < col_end; j+= J_BLOCK_SIZE)
-        {
-            for (i = row_start; i < row_end; i+= I_BLOCK_SIZE)
-            {
-            	for(jj = j; jj < min(j + J_BLOCK_SIZE, col_end); jj++)
-            	{
-            		for(ii = i; ii < min(i + I_BLOCK_SIZE, row_end); ii++)
-            		{
-            			COUNT_AND_BOARD_IJ(inboard, outboard, neighbor_count, ii, jj);
-            		}
-            	}
-            }
-        }
-
-#endif
-#endif
-
-    	//WINRAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-#ifdef MEMORY_BLOCKING_J
-#ifndef MEMORY_BLOCKING_I
-		int jj;
 
 		char mem_access[3];
 		char cent;
-
-
-
-
+		int jj;
 
     	for (jj = col_start; jj < col_end; jj+= J_BLOCK_SIZE)
         {
-			for(j = jj; j < min(jj + J_BLOCK_SIZE, col_end); j++)
+			for (j = jj; j < min(jj + J_BLOCK_SIZE, col_end); j++)
 			{
+
 				//Initializing sum
 				mem_access[0] = 0;
 
@@ -291,13 +262,14 @@ sequential_game_of_life_parallel (char* outboard,
 								BOARD (inboard, row_start, j) +
 								BOARD (inboard, row_start, j+1);
 
+				cent = 0;
 
 				neighbor_count = mem_access[1] + mem_access[2];
 
-				BOARD(outboard, row_start, j) = alivep (neighbor_count, cent);
+				for(i = row_start; i < row_end - 1; i+=2)
+				{	//1
+					neighbor_count += cent;
 
-				for(i = row_start; i < row_end; i++)
-				{
 					cent = BOARD (inboard, i, j);
 
 					neighbor_count = neighbor_count - mem_access[0] - cent;
@@ -314,36 +286,53 @@ sequential_game_of_life_parallel (char* outboard,
 
 					BOARD(outboard, i, j) = alivep (neighbor_count, cent);
 
+					//2
+					neighbor_count += cent;
+
+					cent = BOARD (inboard, i+1, j);
+
+					neighbor_count = neighbor_count - mem_access[0] - cent;
+
+					mem_access[0] = mem_access[1];
+
+					mem_access[1] = mem_access[2];
+
+					mem_access[2] = BOARD (inboard, i+2, j-1) +
+									BOARD (inboard, i+2, j) +
+									BOARD (inboard, i+2, j+1);
+
+					neighbor_count += mem_access[2];
+
+					BOARD(outboard, i+1, j) = alivep (neighbor_count, cent);
+
+					//COUNT_AND_BOARD_IJ(inboard, outboard, neighbor_count, i, j);
+
 				}
+
+				neighbor_count += cent;
+
+				cent = BOARD (inboard, i, j);
+
+				neighbor_count = neighbor_count - mem_access[0] - cent;
+
+				mem_access[0] = mem_access[1];
+
+				mem_access[1] = mem_access[2];
+
+				mem_access[2] = BOARD (inboard, i+1, j-1) +
+								BOARD (inboard, i+1, j) +
+								BOARD (inboard, i+1, j+1);
+
+				neighbor_count += mem_access[2];
+
+				BOARD(outboard, i, j) = alivep (neighbor_count, cent);
+
 			}
         }
 
-#endif
-#endif
-
-#ifndef MEMORY_BLOCKING_J
-#ifdef MEMORY_BLOCKING_I
-		int ii;
-
-    	for (j = col_start; j < col_end; j++)
-        {
-            for (i = row_start; i < row_end; i+= I_BLOCK_SIZE)
-            {
-				for(ii = i; ii < min(i + I_BLOCK_SIZE, row_end); ii++)
-				{
-					COUNT_AND_BOARD_IJ(inboard, outboard, neighbor_count, ii, j);
-				}
-            }
-        }
-
-#endif
-#endif
 
 
-
-#ifndef MEMORY_BLOCKING_J
-#ifndef MEMORY_BLOCKING_I
-*/
+	/*
 		char mem_access[3];
 		char cent;
 
@@ -428,8 +417,7 @@ sequential_game_of_life_parallel (char* outboard,
 			BOARD(outboard, i, j) = alivep (neighbor_count, cent);
 
         }
-//#endif
-//#endif
+    	*/
 
         //SWAP_BOARDS( outboard, inboard );
         //I don't like that weird do while wrapper.
