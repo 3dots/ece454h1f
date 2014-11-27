@@ -42,6 +42,85 @@
 
 #define COUNT_AND_BOARD_IJ(__inboard, __outboard, __neighbor_count, __i, __j) COUNT_AND_BOARD(__inboard, __outboard, __neighbor_count, __i, __j, __i-1, __i+1, __j-1, __j+1)
 
+#define I_CODE_WITH_J(__j, __jminus, __jplus) do { \
+				mem_access[0] = 0;	\
+			\
+				mem_access[1] = BOARD (inboard, row_start-1, __jminus) +	\
+								BOARD (inboard, row_start-1, __j) +	\
+								BOARD (inboard, row_start-1, __jplus);	\
+								\
+								\
+				mem_access[2] = BOARD (inboard, row_start, __jminus) +	\
+								BOARD (inboard, row_start, __j) +	\
+								BOARD (inboard, row_start, __jplus);	\
+								\
+				cent = 0;	\
+				\
+				neighbor_count = mem_access[1] + mem_access[2];	\
+				\
+				for(i = row_start; i < row_end - 1; i+=2)	\
+				{	\
+					neighbor_count += cent;	\
+					\
+					cent = BOARD (inboard, i, __j);	\
+					\
+					neighbor_count = neighbor_count - mem_access[0] - cent;	\
+					\
+					mem_access[0] = mem_access[1];	\
+					\
+					mem_access[1] = mem_access[2];	\
+					\
+					mem_access[2] = BOARD (inboard, i+1, __jminus) +	\
+									BOARD (inboard, i+1, __j) +		\
+									BOARD (inboard, i+1, __jplus);	\
+									\
+					neighbor_count += mem_access[2];	\
+					\
+					BOARD(outboard, i, __j) = alivep (neighbor_count, cent);	\
+					\
+					\
+					neighbor_count += cent;	\
+					\
+					cent = BOARD (inboard, i+1, __j);	\
+					\
+					neighbor_count = neighbor_count - mem_access[0] - cent;	\
+					\
+					mem_access[0] = mem_access[1];	\
+					\
+					mem_access[1] = mem_access[2];	\
+					\
+					mem_access[2] = BOARD (inboard, i+2, __jminus) +	\
+									BOARD (inboard, i+2, __j) +	\
+									BOARD (inboard, i+2, __jplus);	\
+									\
+					neighbor_count += mem_access[2];	\
+					\
+					BOARD(outboard, i+1, __j) = alivep (neighbor_count, cent);	\
+					\
+					\
+					\
+				}	\
+				\
+				neighbor_count += cent;	\
+				\
+				cent = BOARD (inboard, i, __j);	\
+				\
+				neighbor_count = neighbor_count - mem_access[0] - cent;	\
+				\
+				mem_access[0] = mem_access[1];	\
+				\
+				mem_access[1] = mem_access[2];	\
+				\
+				mem_access[2] = BOARD (inboard, i+1, __jminus) +	\
+								BOARD (inboard, i+1, __j) +	\
+								BOARD (inboard, i+1, __jplus);	\
+								\
+				neighbor_count += mem_access[2];	\
+				\
+				BOARD(outboard, i, __j) = alivep (neighbor_count, cent);	\
+				\
+			} while(0)
+
 
 static inline void update(int i, int j, char* outboard,
         char* inboard,
@@ -155,6 +234,8 @@ sequential_game_of_life_parallel (char* outboard,
     }
 
     const int LDA = nrows;
+    char mem_access[3];
+    char cent;
 
     for (curgen = 0; curgen < gens_max; curgen++)
     {
@@ -168,10 +249,8 @@ sequential_game_of_life_parallel (char* outboard,
 
 			//j == 0
 			//i == 1 -> i == nrows/2 - 1
-            for (i = row_start; i < row_end; i++)
-            {
-            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, 0, i - 1, i + 1, ncols - 1, 1);
-            }
+
+            I_CODE_WITH_J(0, ncols - 1, 1);
 
             //j == 1 -> j == ncols/2 - 1
             //i == 0
@@ -187,10 +266,8 @@ sequential_game_of_life_parallel (char* outboard,
 
 			//j == 0
 			//i == nrows/2 -> i == nrows - 2
-            for (i = row_start; i < row_end; i++)
-            {
-            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, 0, i - 1, i + 1, ncols - 1, 1);
-            }
+			I_CODE_WITH_J(0, ncols - 1, 1);
+
 
             //j == 1 -> j == ncols/2 - 1
             //i == nrows - 1
@@ -206,10 +283,8 @@ sequential_game_of_life_parallel (char* outboard,
 
 			//j == ncols - 1
 			//i == 1 -> i == nrows/2 - 1
-            for (i = row_start; i < row_end; i++)
-            {
-            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, ncols - 1, i - 1, i + 1, ncols - 2, 0);
-            }
+			I_CODE_WITH_J(ncols - 1, ncols - 2, 0);
+
 
             //j == ncols/2 -> j == ncols - 2
             //i == 0
@@ -225,10 +300,7 @@ sequential_game_of_life_parallel (char* outboard,
 
 			//j == ncols - 1
 			//i == nrows/2 -> i == nrows - 2
-            for (i = row_start; i < row_end; i++)
-            {
-            	COUNT_AND_BOARD(inboard, outboard, neighbor_count, i, ncols - 1, i - 1, i + 1, ncols - 2, 0);
-            }
+			I_CODE_WITH_J(ncols - 1, ncols - 2, 0);
 
             //j == ncols/2 -> j == ncols - 2
             //i == nrows - 1
@@ -241,10 +313,7 @@ sequential_game_of_life_parallel (char* outboard,
 		//Main code part, no if/else branching
 
 
-		char mem_access[3];
-		char cent;
 		int jj;
-
     	for (jj = col_start; jj < col_end; jj+= J_BLOCK_SIZE)
         {
 			for (j = jj; j < min(jj + J_BLOCK_SIZE, col_end); j++)
