@@ -10,7 +10,8 @@
 #include "life.h"
 #include "util.h"
 
-#define MEMORY_BLOCKING 1
+#define MEMORY_BLOCKING_J
+#define MEMORY_BLOCKING_I
 #define J_BLOCK_SIZE 32
 #define I_BLOCK_SIZE 32
 
@@ -87,7 +88,7 @@ static inline void update(int i, int j, char* outboard,
 	BOARD(outboard, i, j) = alivep (neighbor_count, BOARD (inboard, i, j));
 }
 
-#ifdef MEMORY_BLOCKING
+#ifdef MEMORY_BLOCKING_I
 
 int min(int x, int y){
 	if(x > y){
@@ -97,6 +98,20 @@ int min(int x, int y){
 		return x;
 }
 
+#endif
+
+#ifndef MEMORY_BLOCKING_I
+#ifdef MEMORY_BLOCKING_J
+
+int min(int x, int y){
+	if(x > y){
+		return y;
+	}
+	else
+		return x;
+}
+
+#endif
 #endif
 
 
@@ -226,7 +241,8 @@ sequential_game_of_life_parallel (char* outboard,
 
 		//Main code part, no if/else branching
 
-#ifdef MEMORY_BLOCKING
+#ifdef MEMORY_BLOCKING_J
+#ifdef MEMORY_BLOCKING_I
 		int ii, jj;
 
     	for (j = col_start; j < col_end; j+= J_BLOCK_SIZE)
@@ -243,9 +259,49 @@ sequential_game_of_life_parallel (char* outboard,
             }
         }
 
-#else
+#endif
+#endif
+
+#ifdef MEMORY_BLOCKING_J
+#ifndef MEMORY_BLOCKING_I
+		int jj;
+
+    	for (j = col_start; j < col_end; j+= J_BLOCK_SIZE)
+        {
+			for(jj = j; jj < min(j + J_BLOCK_SIZE, col_end); jj++)
+			{
+				for(i = row_start; i < row_end; i++)
+				{
+					COUNT_AND_BOARD_IJ(inboard, outboard, neighbor_count, i, jj);
+				}
+			}
+        }
+
+#endif
+#endif
+
+#ifndef MEMORY_BLOCKING_J
+#ifdef MEMORY_BLOCKING_I
+		int ii;
+
+    	for (j = col_start; j < col_end; j++)
+        {
+            for (i = row_start; i < row_end; i+= I_BLOCK_SIZE)
+            {
+				for(ii = i; ii < min(i + I_BLOCK_SIZE, row_end); ii++)
+				{
+					COUNT_AND_BOARD_IJ(inboard, outboard, neighbor_count, ii, j);
+				}
+            }
+        }
+
+#endif
+#endif
 
 
+
+#ifndef MEMORY_BLOCKING_J
+#ifndef MEMORY_BLOCKING_I
     	for (j = col_start; j < col_end; j++)
         {
             for (i = row_start; i < row_end; i++)
@@ -254,8 +310,9 @@ sequential_game_of_life_parallel (char* outboard,
 
             }
         }
-
 #endif
+#endif
+
         //SWAP_BOARDS( outboard, inboard );
         //I don't like that weird do while wrapper.
         char *temp = outboard;
