@@ -12,7 +12,7 @@
 
 //#define MEMORY_BLOCKING_J
 //#define MEMORY_BLOCKING_I
-#define J_BLOCK_SIZE 32
+#define J_BLOCK_SIZE 4
 //#define I_BLOCK_SIZE 32
 
 
