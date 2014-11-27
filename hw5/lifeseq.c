@@ -366,8 +366,8 @@ sequential_game_of_life_parallel (char* outboard,
 
 			neighbor_count = mem_access[1] + mem_access[2];
 
-			for(i = row_start; i < row_end; i++)
-			{
+			for(i = row_start; i < row_end - 1; i+=2)
+			{	//1
 				neighbor_count += cent;
 
 				cent = BOARD (inboard, i, j);
@@ -386,9 +386,46 @@ sequential_game_of_life_parallel (char* outboard,
 
 				BOARD(outboard, i, j) = alivep (neighbor_count, cent);
 
+				//2
+				neighbor_count += cent;
+
+				cent = BOARD (inboard, i+1, j);
+
+				neighbor_count = neighbor_count - mem_access[0] - cent;
+
+				mem_access[0] = mem_access[1];
+
+				mem_access[1] = mem_access[2];
+
+				mem_access[2] = BOARD (inboard, i+2, j-1) +
+								BOARD (inboard, i+2, j) +
+								BOARD (inboard, i+2, j+1);
+
+				neighbor_count += mem_access[2];
+
+				BOARD(outboard, i+1, j) = alivep (neighbor_count, cent);
+
 				//COUNT_AND_BOARD_IJ(inboard, outboard, neighbor_count, i, j);
 
 			}
+
+			neighbor_count += cent;
+
+			cent = BOARD (inboard, i, j);
+
+			neighbor_count = neighbor_count - mem_access[0] - cent;
+
+			mem_access[0] = mem_access[1];
+
+			mem_access[1] = mem_access[2];
+
+			mem_access[2] = BOARD (inboard, i+1, j-1) +
+							BOARD (inboard, i+1, j) +
+							BOARD (inboard, i+1, j+1);
+
+			neighbor_count += mem_access[2];
+
+			BOARD(outboard, i, j) = alivep (neighbor_count, cent);
 
         }
 //#endif
