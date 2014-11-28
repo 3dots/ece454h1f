@@ -28,6 +28,11 @@
 
 #define BOARD( __board, __i, __j )  (__board[(__i) + LDA*(__j)])
 
+/*This macro was used heavily in the final versions of the code, where
+ * the overlap regions were first dealt with separately, before invoking the main loop.
+ * Later versions use the next macro, given how in this version, we are doing unnecessary memory
+ * access.
+ */
 #define COUNT_AND_BOARD(__inboard, __outboard, __neighbor_count, __i, __j, __inorth, __isouth, __jwest, __jeast) 	__neighbor_count = \
 		BOARD (__inboard, __inorth, __jwest) + 	\
 		BOARD (__inboard, __inorth, __j) +		\
@@ -40,8 +45,18 @@
 											\
 		BOARD(__outboard, __i, __j) = alivep (__neighbor_count, BOARD (__inboard, __i, __j))
 
+/*
+ * This is actually the code that was "called" in the semi-final version's main loop.
+ * It had the benefit of no if/else statements.
+ */
 #define COUNT_AND_BOARD_IJ(__inboard, __outboard, __neighbor_count, __i, __j) COUNT_AND_BOARD(__inboard, __outboard, __neighbor_count, __i, __j, __i-1, __i+1, __j-1, __j+1)
 
+/*
+ * After I realized that we are doing far too many memory accesses then necessary, and
+ * we actually only really need a running sum, I implemented such a version.
+ * I noticed a small improvement when it was unrolled once, so this macro was made for
+ * the overlapping loops over i.
+ */
 #define I_CODE_WITH_J(__j, __jminus, __jplus) do { \
 				mem_access[0] = 0;	\
 			\
@@ -121,7 +136,52 @@
 				\
 			} while(0)
 
+/*
+ * A similiar code for looping solely over j, thing is, this slows us down, so it wasnt used.
+ */
+#define J_CODE_WITH_I(__i, __iminus, __iplus) do { \
+				mem_access[0] = 0;	\
+			\
+				mem_access[1] = BOARD (inboard, __iminus, col_start-1) +	\
+								BOARD (inboard, __i, col_start-1) +	\
+								BOARD (inboard, __iplus, col_start-1);	\
+								\
+								\
+				mem_access[2] = BOARD (inboard, __iminus, col_start) +	\
+								BOARD (inboard, __i, col_start) +	\
+								BOARD (inboard, __iplus, col_start);	\
+								\
+				cent = 0;	\
+				\
+				neighbor_count = mem_access[1] + mem_access[2];	\
+				\
+				for(j = col_start; j < col_end; j++)	\
+				{	\
+					neighbor_count += cent;	\
+					\
+					cent = BOARD (inboard, __i, j);	\
+					\
+					neighbor_count = neighbor_count - mem_access[0] - cent;	\
+					\
+					mem_access[0] = mem_access[1];	\
+					\
+					mem_access[1] = mem_access[2];	\
+					\
+					mem_access[2] = BOARD (inboard, __iminus, j+1) +	\
+									BOARD (inboard, __i, j+1) +		\
+									BOARD (inboard, __iplus, j+1);	\
+									\
+					neighbor_count += mem_access[2];	\
+					\
+					BOARD(outboard, __i, j) = alivep (neighbor_count, cent);	\
+				}	\
+				\
+			} while(0)
 
+/*
+ * This is used in the original code version. It changed the modulus function call
+ * To if/else statements. Which were later removed in other versions
+ */
 static inline void update(int i, int j, char* outboard,
         char* inboard,
         const int nrows,
@@ -176,22 +236,7 @@ int min(int x, int y){
 	else
 		return x;
 }
-/*
 
-#ifndef MEMORY_BLOCKING_I
-#ifdef MEMORY_BLOCKING_J
-
-int min(int x, int y){
-	if(x > y){
-		return y;
-	}
-	else
-		return x;
-}
-
-#endif
-#endif
-*/
 
     char*
 sequential_game_of_life_parallel (char* outboard,
@@ -254,6 +299,7 @@ sequential_game_of_life_parallel (char* outboard,
 
             //j == 1 -> j == ncols/2 - 1
             //i == 0
+            //J_CODE_WITH_I(0, nrows - 1, 1);
             for (j = col_start; j < col_end; j++)
             {
             	COUNT_AND_BOARD(inboard, outboard, neighbor_count, 0, j, nrows - 1, 1, j - 1, j + 1);
@@ -271,6 +317,7 @@ sequential_game_of_life_parallel (char* outboard,
 
             //j == 1 -> j == ncols/2 - 1
             //i == nrows - 1
+			//J_CODE_WITH_I(nrows - 1, nrows - 2, 0);
             for (j = col_start; j < col_end; j++)
             {
             	COUNT_AND_BOARD(inboard, outboard, neighbor_count, nrows - 1, j, nrows - 2, 0, j - 1, j + 1);
@@ -288,6 +335,7 @@ sequential_game_of_life_parallel (char* outboard,
 
             //j == ncols/2 -> j == ncols - 2
             //i == 0
+			//J_CODE_WITH_I(0, nrows - 1, 1);
             for (j = col_start; j < col_end; j++)
             {
             	COUNT_AND_BOARD(inboard, outboard, neighbor_count, 0, j, nrows - 1, 1, j - 1, j + 1);
@@ -304,6 +352,7 @@ sequential_game_of_life_parallel (char* outboard,
 
             //j == ncols/2 -> j == ncols - 2
             //i == nrows - 1
+			//J_CODE_WITH_I(nrows - 1, nrows - 2, 0);
             for (j = col_start; j < col_end; j++)
             {
             	COUNT_AND_BOARD(inboard, outboard, neighbor_count, nrows - 1, j, nrows - 2, 0, j - 1, j + 1);
@@ -311,7 +360,7 @@ sequential_game_of_life_parallel (char* outboard,
 		}
 
 		//Main code part, no if/else branching
-
+		//Unroleld once in the i dimension, as well as a block on j of size 4.
 
 		int jj;
     	for (jj = col_start; jj < col_end; jj+= J_BLOCK_SIZE)
@@ -400,93 +449,6 @@ sequential_game_of_life_parallel (char* outboard,
         }
 
 
-
-	/*
-		char mem_access[3];
-		char cent;
-
-    	for (j = col_start; j < col_end; j++)
-        {
-
-    		//Initializing sum
-			mem_access[0] = 0;
-
-			mem_access[1] = BOARD (inboard, row_start-1, j-1) +
-							BOARD (inboard, row_start-1, j) +
-							BOARD (inboard, row_start-1, j+1);
-
-
-			mem_access[2] = BOARD (inboard, row_start, j-1) +
-							BOARD (inboard, row_start, j) +
-							BOARD (inboard, row_start, j+1);
-
-			cent = 0;
-
-			neighbor_count = mem_access[1] + mem_access[2];
-
-			for(i = row_start; i < row_end - 1; i+=2)
-			{	//1
-				neighbor_count += cent;
-
-				cent = BOARD (inboard, i, j);
-
-				neighbor_count = neighbor_count - mem_access[0] - cent;
-
-				mem_access[0] = mem_access[1];
-
-				mem_access[1] = mem_access[2];
-
-				mem_access[2] = BOARD (inboard, i+1, j-1) +
-								BOARD (inboard, i+1, j) +
-								BOARD (inboard, i+1, j+1);
-
-				neighbor_count += mem_access[2];
-
-				BOARD(outboard, i, j) = alivep (neighbor_count, cent);
-
-				//2
-				neighbor_count += cent;
-
-				cent = BOARD (inboard, i+1, j);
-
-				neighbor_count = neighbor_count - mem_access[0] - cent;
-
-				mem_access[0] = mem_access[1];
-
-				mem_access[1] = mem_access[2];
-
-				mem_access[2] = BOARD (inboard, i+2, j-1) +
-								BOARD (inboard, i+2, j) +
-								BOARD (inboard, i+2, j+1);
-
-				neighbor_count += mem_access[2];
-
-				BOARD(outboard, i+1, j) = alivep (neighbor_count, cent);
-
-				//COUNT_AND_BOARD_IJ(inboard, outboard, neighbor_count, i, j);
-
-			}
-
-			neighbor_count += cent;
-
-			cent = BOARD (inboard, i, j);
-
-			neighbor_count = neighbor_count - mem_access[0] - cent;
-
-			mem_access[0] = mem_access[1];
-
-			mem_access[1] = mem_access[2];
-
-			mem_access[2] = BOARD (inboard, i+1, j-1) +
-							BOARD (inboard, i+1, j) +
-							BOARD (inboard, i+1, j+1);
-
-			neighbor_count += mem_access[2];
-
-			BOARD(outboard, i, j) = alivep (neighbor_count, cent);
-
-        }
-    	*/
 
         //SWAP_BOARDS( outboard, inboard );
         //I don't like that weird do while wrapper.

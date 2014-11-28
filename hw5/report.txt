@@ -3,6 +3,7 @@
 by: 	Viktor Riabtsev
 	997544420
 
+NOTE: FINAL VERSION SPECS ARE AT THE END OF THIS REPORT
 
 Before touching parallelization, I did the following:
 
@@ -13,19 +14,31 @@ Switched inner loop order to make use of cache better. (consecutive i's and not 
 
 The parallalization involed creating 4 threads in life.c game_of_life(), and using an intermidiate function to call a parallelized version of sequential_game_of_life() -> sequential_game_of_life_parallel() in lifeseq.c with different sector inputs.
 
-The idea was to split the square data block into four blocks, lets each thread work over each own blocks (a passed int sector decided what the start and end indecies for the working loop are). Ask for a mutex. Modfiy and external status integer by ORing in a bit depending on which sector (0, 1, 2, 3) finished. Then go to sleep by use of the pthread_cond_wait() function. The last thread to finish it's block would reset the status integer and signal a wake up (each thread subsequently unlocks the mutex associated with the condition variable and the status integer, so that all threads may be active)
+The idea was to split the square data block into four blocks, let each thread work over each own block (a passed int sector decided what the start and end indecies for the working loop are). Ask for a mutex. Modify an external status integer by ORing in a bit depending on which sector (0, 1, 2, 3) finished. Then go to sleep by use of the pthread_cond_wait() function. The last thread to finish it's block would reset the status integer and signal a wake up (each thread subsequently unlocks the mutex associated with the condition variable and the status integer, so that all threads may be active)
 
 The mutex and condition variables are initialized in the game_of_life(), and passed during thread creation by passing a pointer to a structure with the needed paramters (rows, columns etc).
 
 After all the work is done, the sector 0 thread returns the relevant board * into a void* in game_of_life(), which then returns it.
 
 
-I was actually doing my timing tests through putty ssh connection to an ug machine, and was greatly disssapointed to see my overall time increase dramatically. What I didn't know at the time was that the ssh connection doesn't seem to let me utilize threads well. 
+I was actually doing my timing tests through putty ssh connection to an ug machine, and was greatly dissapointed to see my overall time increase dramatically. What I didn't know at the time was that the ssh connection didn't let me utilize threads well. 
 
 When tested in the lab though, the parallization got me up to overall 8.1 increase, as desired.
 
 Sidenote: the checks that the input number of rows and columns are equal, less than 10,000, and are a power of two happen along other checks in load_dimensions() in load.c .
 
-FURTHER ADDITION:
+FINAL SPECS:
 
-After all this, I took a closer look at my method of getting rid of the modulus call. I was doing if/else on the i and j to determine if I need to overlap. Thats an extra four branches per loop than necessary. So created a macro COUNT_AND_BOARD, which does the counting and then BOARD's the final values. Except I pass the inorh,isouth and so on to it. This way I, depending on the sector, first deal with the overlapping sections. (ie for example, for sector = 0, I deal with the i ==0, j==0 point separately, then do the strip i == 1 -> i == nrows/2 – 1 j == 0, and the strip i == 0 j == 1 -> j == ncols/2  - 1) then the main loop does not contain any branches and simply uses i-1, i+1 and so on. This bought me some additional speed up which hopefully let me get full performance marks.
+After all this, I took a closer look at my method of getting rid of the modulus call. I was doing if/else on the i and j to determine if I need to overlap. Thats an extra four branches per loop than necessary. So created a macro COUNT_AND_BOARD, which does the counting and then BOARD's the final values. Except I pass the inorh,isouth and so on to it. This way I, depending on the sector, first deal with the overlapping sections. (ie for example, for sector = 0, I deal with the i ==0, j==0 point separately, then do the strip i == 1 -> i == nrows/2 – 1 j == 0, and the strip i == 0 j == 1 -> j == ncols/2  - 1) then the main loop does not contain any branches and simply uses i-1, i+1 and so on. This bought me some additional speed up.
+
+At this point I had an eureka moment where I realized that I don't need to keep doing those 9 memory accesses in order to calculate the neighbour_count. I can keep a running sum instead, adding and subtracting members as necessary. This is what you will see in the final code for the main function.
+
+After running some tests I realized that I got the best improvement when I blocked j with a block size of 4, and unrolled in the i dimension once.
+
+Realizing I could apply this to the entangled sections as well, I created macros I_CODE_WITH_J (code loop over i, with static j's) that take in j, jminus, jplus respectivly. This is used on the two top and bottom strips. 
+
+I tried doing the same thing to the J loops, but actually got it to slow down, so I kept the simple loops there.
+
+So, in the end I got it to improve the code by an overall factor of 13.3, which will hopefully land me the full performance mark.
+
+
